@@ -19,12 +19,14 @@ CREATE TABLE IF NOT EXISTS users (
     reset_password_token VARCHAR(255),
     reset_password_expire DATETIME,
     is_active BOOLEAN DEFAULT TRUE,
+    status ENUM('active', 'suspended', 'inactive') DEFAULT 'active' COMMENT 'Account status for admin management',
     last_login DATETIME,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     INDEX idx_email (email),
     INDEX idx_role (role),
-    INDEX idx_email_verified (email_verified)
+    INDEX idx_email_verified (email_verified),
+    INDEX idx_status (status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Categories Table
@@ -97,6 +99,8 @@ CREATE TABLE IF NOT EXISTS products (
     tags JSON,
     is_active BOOLEAN DEFAULT TRUE,
     is_featured BOOLEAN DEFAULT FALSE,
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'approved' COMMENT 'Admin moderation status',
+    flagged BOOLEAN DEFAULT FALSE COMMENT 'Flagged for admin review',
     views INT DEFAULT 0,
     sales_count INT DEFAULT 0,
     rating DECIMAL(3,2) DEFAULT 0.00,
@@ -112,6 +116,8 @@ CREATE TABLE IF NOT EXISTS products (
     INDEX idx_slug (slug),
     INDEX idx_is_active (is_active),
     INDEX idx_is_featured (is_featured),
+    INDEX idx_status (status),
+    INDEX idx_flagged (flagged),
     INDEX idx_price (price),
     INDEX idx_rating (rating),
     INDEX idx_sales_count (sales_count),
@@ -216,6 +222,60 @@ CREATE TABLE IF NOT EXISTS reviews (
     INDEX idx_rating (rating),
     INDEX idx_is_approved (is_approved),
     UNIQUE KEY unique_review (product_id, customer_id, order_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Events Table
+CREATE TABLE IF NOT EXISTS events (
+    id CHAR(36) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    slug VARCHAR(255) NOT NULL UNIQUE,
+    description TEXT,
+    category ENUM('craft_fair', 'workshop', 'exhibition', 'marketplace', 'conference', 'networking', 'other') NOT NULL DEFAULT 'other',
+    event_type ENUM('physical', 'virtual', 'hybrid') NOT NULL DEFAULT 'physical',
+    location VARCHAR(500),
+    virtual_link VARCHAR(500),
+    start_date DATETIME NOT NULL,
+    end_date DATETIME NOT NULL,
+    registration_deadline DATETIME,
+    max_capacity INT,
+    current_participants INT DEFAULT 0,
+    requirements TEXT,
+    banner_image VARCHAR(500),
+    status ENUM('draft', 'published', 'ongoing', 'completed', 'cancelled') DEFAULT 'draft',
+    visibility ENUM('public', 'invite_only', 'private') DEFAULT 'public',
+    organizer_id CHAR(36),
+    tags JSON,
+    schedule JSON,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (organizer_id) REFERENCES vendors(id) ON DELETE CASCADE,
+    INDEX idx_organizer_id (organizer_id),
+    INDEX idx_status (status),
+    INDEX idx_category (category),
+    INDEX idx_start_date (start_date),
+    INDEX idx_visibility (visibility),
+    INDEX idx_slug (slug)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Event Registrations Table
+CREATE TABLE IF NOT EXISTS event_registrations (
+    id CHAR(36) PRIMARY KEY,
+    event_id CHAR(36) NOT NULL,
+    vendor_id CHAR(36) NOT NULL,
+    status ENUM('pending', 'confirmed', 'waitlist', 'cancelled', 'attended') DEFAULT 'pending',
+    registration_date DATETIME NOT NULL,
+    notes TEXT,
+    rating INT CHECK (rating >= 1 AND rating <= 5),
+    feedback TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
+    FOREIGN KEY (vendor_id) REFERENCES vendors(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_event_vendor (event_id, vendor_id),
+    INDEX idx_event_id (event_id),
+    INDEX idx_vendor_id (vendor_id),
+    INDEX idx_status (status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Insert default admin user (password: Admin123!)
