@@ -1,319 +1,365 @@
--- Adminer 5.4.1 MySQL 8.0.43 dump
+-- Handmade Hub Database Schema
+-- MySQL Database Setup Script
 
-SET NAMES utf8;
-SET time_zone = '+00:00';
-SET foreign_key_checks = 0;
+-- Create database
+CREATE DATABASE IF NOT EXISTS handmade_hub CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE handmade_hub;
 
-SET NAMES utf8mb4;
-
-DROP TABLE IF EXISTS `categories`;
-CREATE TABLE `categories` (
-  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  `image_url` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `parent_id` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `is_active` tinyint(1) DEFAULT '1',
-  `display_order` int DEFAULT '0',
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`),
-  UNIQUE KEY `slug` (`slug`),
-  KEY `idx_slug` (`slug`),
-  KEY `idx_parent_id` (`parent_id`),
-  KEY `idx_is_active` (`is_active`),
-  CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL
+-- Users Table
+CREATE TABLE IF NOT EXISTS users (
+    id CHAR(36) PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    phone VARCHAR(20),
+    role ENUM('customer', 'vendor', 'admin') DEFAULT 'customer' NOT NULL,
+    email_verified BOOLEAN DEFAULT FALSE,
+    verification_token VARCHAR(255),
+    reset_password_token VARCHAR(255),
+    reset_password_expire DATETIME,
+    is_active BOOLEAN DEFAULT TRUE,
+    status ENUM('active', 'suspended', 'inactive') DEFAULT 'active' COMMENT 'Account status for admin management',
+    last_login DATETIME,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_email (email),
+    INDEX idx_role (role),
+    INDEX idx_email_verified (email_verified),
+    INDEX idx_status (status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
-DROP TABLE IF EXISTS `event_registrations`;
-CREATE TABLE `event_registrations` (
-  `id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `event_id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `vendor_id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` enum('pending','confirmed','waitlist','cancelled','attended') COLLATE utf8mb4_unicode_ci DEFAULT 'pending',
-  `registration_date` datetime NOT NULL,
-  `notes` text COLLATE utf8mb4_unicode_ci,
-  `rating` int DEFAULT NULL,
-  `feedback` text COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_event_vendor` (`event_id`,`vendor_id`),
-  KEY `idx_vendor_id` (`vendor_id`),
-  KEY `idx_status` (`status`),
-  CONSTRAINT `event_registrations_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `event_registrations_ibfk_2` FOREIGN KEY (`vendor_id`) REFERENCES `vendors` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `event_registrations_chk_1` CHECK (((`rating` >= 1) and (`rating` <= 5)))
+-- Categories Table
+CREATE TABLE IF NOT EXISTS categories (
+    id CHAR(36) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    slug VARCHAR(100) NOT NULL UNIQUE,
+    description TEXT,
+    image_url VARCHAR(500),
+    parent_id CHAR(36),
+    is_active BOOLEAN DEFAULT TRUE,
+    display_order INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (parent_id) REFERENCES categories(id) ON DELETE SET NULL,
+    INDEX idx_slug (slug),
+    INDEX idx_parent_id (parent_id),
+    INDEX idx_is_active (is_active)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
-DROP TABLE IF EXISTS `events`;
-CREATE TABLE `events` (
-  `id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category` enum('craft_fair','workshop','exhibition','marketplace','conference','networking','other') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `event_type` enum('physical','virtual','hybrid') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `location` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `virtual_link` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `start_date` datetime NOT NULL,
-  `end_date` datetime NOT NULL,
-  `registration_deadline` datetime DEFAULT NULL,
-  `max_capacity` int DEFAULT NULL,
-  `current_participants` int DEFAULT '0',
-  `requirements` text COLLATE utf8mb4_unicode_ci,
-  `banner_image` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` enum('draft','published','ongoing','completed','cancelled') COLLATE utf8mb4_unicode_ci DEFAULT 'draft',
-  `visibility` enum('public','invite_only','private') COLLATE utf8mb4_unicode_ci DEFAULT 'public',
-  `organizer_id` varchar(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tags` json DEFAULT NULL,
-  `schedule` json DEFAULT NULL,
-  `is_active` tinyint(1) DEFAULT '1',
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `slug` (`slug`),
-  KEY `idx_organizer_id` (`organizer_id`),
-  KEY `idx_status` (`status`),
-  KEY `idx_category` (`category`),
-  KEY `idx_start_date` (`start_date`),
-  KEY `idx_visibility` (`visibility`),
-  CONSTRAINT `events_ibfk_1` FOREIGN KEY (`organizer_id`) REFERENCES `vendors` (`id`) ON DELETE CASCADE
+-- Vendors Table
+CREATE TABLE IF NOT EXISTS vendors (
+    id CHAR(36) PRIMARY KEY,
+    user_id CHAR(36) NOT NULL,
+    business_name VARCHAR(255) NOT NULL,
+    business_description TEXT,
+    logo_url VARCHAR(500),
+    banner_url VARCHAR(500),
+    address TEXT,
+    city VARCHAR(100),
+    state VARCHAR(100),
+    country VARCHAR(100),
+    postal_code VARCHAR(20),
+    business_phone VARCHAR(20),
+    business_email VARCHAR(255),
+    website VARCHAR(500),
+    commission_rate DECIMAL(5,2) DEFAULT 10.00 NOT NULL,
+    is_approved BOOLEAN DEFAULT FALSE,
+    approved_at DATETIME,
+    approved_by CHAR(36),
+    rating DECIMAL(3,2) DEFAULT 0.00,
+    total_sales DECIMAL(12,2) DEFAULT 0.00,
+    total_orders INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    INDEX idx_user_id (user_id),
+    INDEX idx_is_approved (is_approved),
+    INDEX idx_business_name (business_name),
+    INDEX idx_rating (rating)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
-DROP TABLE IF EXISTS `order_items`;
-CREATE TABLE `order_items` (
-  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `order_id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `vendor_id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_image` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `quantity` int NOT NULL,
-  `unit_price` decimal(10,2) NOT NULL,
-  `total_price` decimal(10,2) NOT NULL,
-  `commission` decimal(10,2) DEFAULT '0.00',
-  `vendor_payout` decimal(10,2) NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `idx_order_id` (`order_id`),
-  KEY `idx_product_id` (`product_id`),
-  KEY `idx_vendor_id` (`vendor_id`),
-  CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  CONSTRAINT `order_items_ibfk_3` FOREIGN KEY (`vendor_id`) REFERENCES `vendors` (`id`)
+-- Products Table
+CREATE TABLE IF NOT EXISTS products (
+    id CHAR(36) PRIMARY KEY,
+    vendor_id CHAR(36) NOT NULL,
+    category_id CHAR(36),
+    title VARCHAR(255) NOT NULL,
+    slug VARCHAR(255) NOT NULL,
+    description TEXT,
+    price DECIMAL(10,2) NOT NULL,
+    compare_at_price DECIMAL(10,2),
+    cost_per_item DECIMAL(10,2),
+    stock_quantity INT DEFAULT 0,
+    sku VARCHAR(100),
+    barcode VARCHAR(100),
+    weight DECIMAL(8,2),
+    weight_unit ENUM('kg', 'g', 'lb', 'oz') DEFAULT 'kg',
+    dimensions JSON,
+    tags JSON,
+    is_active BOOLEAN DEFAULT TRUE,
+    is_featured BOOLEAN DEFAULT FALSE,
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'approved' COMMENT 'Admin moderation status',
+    flagged BOOLEAN DEFAULT FALSE COMMENT 'Flagged for admin review',
+    views INT DEFAULT 0,
+    sales_count INT DEFAULT 0,
+    rating DECIMAL(3,2) DEFAULT 0.00,
+    review_count INT DEFAULT 0,
+    meta_title VARCHAR(255),
+    meta_description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (vendor_id) REFERENCES vendors(id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL,
+    INDEX idx_vendor_id (vendor_id),
+    INDEX idx_category_id (category_id),
+    INDEX idx_slug (slug),
+    INDEX idx_is_active (is_active),
+    INDEX idx_is_featured (is_featured),
+    INDEX idx_status (status),
+    INDEX idx_flagged (flagged),
+    INDEX idx_price (price),
+    INDEX idx_rating (rating),
+    INDEX idx_sales_count (sales_count),
+    FULLTEXT idx_search (title, description)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
-DROP TABLE IF EXISTS `orders`;
-CREATE TABLE `orders` (
-  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `order_number` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `customer_id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` enum('pending','processing','shipped','delivered','cancelled','refunded') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
-  `payment_status` enum('pending','paid','failed','refunded') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
-  `payment_method` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payment_intent_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `subtotal` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `shipping_cost` decimal(10,2) DEFAULT '0.00',
-  `tax` decimal(10,2) DEFAULT '0.00',
-  `discount` decimal(10,2) DEFAULT '0.00',
-  `total_amount` decimal(10,2) NOT NULL,
-  `currency` varchar(3) COLLATE utf8mb4_unicode_ci DEFAULT 'USD',
-  `shipping_address` json NOT NULL,
-  `billing_address` json DEFAULT NULL,
-  `customer_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `customer_phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `notes` text COLLATE utf8mb4_unicode_ci,
-  `tracking_number` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `carrier` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `shipped_at` datetime DEFAULT NULL,
-  `delivered_at` datetime DEFAULT NULL,
-  `cancelled_at` datetime DEFAULT NULL,
-  `cancellation_reason` text COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `order_number` (`order_number`),
-  KEY `idx_order_number` (`order_number`),
-  KEY `idx_customer_id` (`customer_id`),
-  KEY `idx_status` (`status`),
-  KEY `idx_payment_status` (`payment_status`),
-  KEY `idx_created_at` (`created_at`),
-  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `users` (`id`)
+-- Product Images Table
+CREATE TABLE IF NOT EXISTS product_images (
+    id CHAR(36) PRIMARY KEY,
+    product_id CHAR(36) NOT NULL,
+    image_url VARCHAR(500) NOT NULL,
+    alt_text VARCHAR(255),
+    is_primary BOOLEAN DEFAULT FALSE,
+    display_order INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+    INDEX idx_product_id (product_id),
+    INDEX idx_is_primary (is_primary)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
-DROP TABLE IF EXISTS `product_images`;
-CREATE TABLE `product_images` (
-  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image_url` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alt_text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `is_primary` tinyint(1) DEFAULT '0',
-  `display_order` int DEFAULT '0',
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `idx_product_id` (`product_id`),
-  KEY `idx_is_primary` (`is_primary`),
-  CONSTRAINT `product_images_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
+-- Orders Table
+CREATE TABLE IF NOT EXISTS orders (
+    id CHAR(36) PRIMARY KEY,
+    order_number VARCHAR(50) NOT NULL UNIQUE,
+    customer_id CHAR(36) NOT NULL,
+    status ENUM('pending', 'processing', 'shipped', 'delivered', 'cancelled', 'refunded') DEFAULT 'pending' NOT NULL,
+    payment_status ENUM('pending', 'paid', 'failed', 'refunded') DEFAULT 'pending' NOT NULL,
+    payment_method VARCHAR(50),
+    payment_intent_id VARCHAR(255),
+    subtotal DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    shipping_cost DECIMAL(10,2) DEFAULT 0.00,
+    tax DECIMAL(10,2) DEFAULT 0.00,
+    discount DECIMAL(10,2) DEFAULT 0.00,
+    total_amount DECIMAL(10,2) NOT NULL,
+    currency VARCHAR(3) DEFAULT 'USD',
+    shipping_address JSON NOT NULL,
+    billing_address JSON,
+    customer_email VARCHAR(255) NOT NULL,
+    customer_phone VARCHAR(20),
+    notes TEXT,
+    tracking_number VARCHAR(100),
+    carrier VARCHAR(100),
+    shipped_at DATETIME,
+    delivered_at DATETIME,
+    cancelled_at DATETIME,
+    cancellation_reason TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES users(id),
+    INDEX idx_order_number (order_number),
+    INDEX idx_customer_id (customer_id),
+    INDEX idx_status (status),
+    INDEX idx_payment_status (payment_status),
+    INDEX idx_created_at (created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
-DROP TABLE IF EXISTS `products`;
-CREATE TABLE `products` (
-  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `vendor_id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_id` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  `price` decimal(10,2) NOT NULL,
-  `compare_at_price` decimal(10,2) DEFAULT NULL,
-  `cost_per_item` decimal(10,2) DEFAULT NULL,
-  `stock_quantity` int DEFAULT '0',
-  `sku` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `barcode` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `weight` decimal(8,2) DEFAULT NULL,
-  `weight_unit` enum('kg','g','lb','oz') COLLATE utf8mb4_unicode_ci DEFAULT 'kg',
-  `dimensions` json DEFAULT NULL,
-  `tags` json DEFAULT NULL,
-  `is_active` tinyint(1) DEFAULT '1',
-  `is_featured` tinyint(1) DEFAULT '0',
-  `status` enum('pending','approved','rejected') COLLATE utf8mb4_unicode_ci DEFAULT 'approved' COMMENT 'Admin moderation status',
-  `flagged` tinyint(1) DEFAULT '0' COMMENT 'Flagged for admin review',
-  `display_order` int DEFAULT '0',
-  `views` int DEFAULT '0',
-  `sales_count` int DEFAULT '0',
-  `rating` decimal(3,2) DEFAULT '0.00',
-  `review_count` int DEFAULT '0',
-  `meta_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_description` text COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `idx_vendor_id` (`vendor_id`),
-  KEY `idx_category_id` (`category_id`),
-  KEY `idx_slug` (`slug`),
-  KEY `idx_is_active` (`is_active`),
-  KEY `idx_is_featured` (`is_featured`),
-  KEY `idx_price` (`price`),
-  KEY `idx_rating` (`rating`),
-  KEY `idx_sales_count` (`sales_count`),
-  KEY `idx_products_status` (`status`),
-  KEY `idx_products_flagged` (`flagged`),
-  FULLTEXT KEY `idx_search` (`title`,`description`),
-  CONSTRAINT `products_ibfk_1` FOREIGN KEY (`vendor_id`) REFERENCES `vendors` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `products_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL
+-- Order Items Table
+CREATE TABLE IF NOT EXISTS order_items (
+    id CHAR(36) PRIMARY KEY,
+    order_id CHAR(36) NOT NULL,
+    product_id CHAR(36) NOT NULL,
+    vendor_id CHAR(36) NOT NULL,
+    product_title VARCHAR(255) NOT NULL,
+    product_image VARCHAR(500),
+    quantity INT NOT NULL,
+    unit_price DECIMAL(10,2) NOT NULL,
+    total_price DECIMAL(10,2) NOT NULL,
+    commission DECIMAL(10,2) DEFAULT 0.00,
+    vendor_payout DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id),
+    FOREIGN KEY (vendor_id) REFERENCES vendors(id),
+    INDEX idx_order_id (order_id),
+    INDEX idx_product_id (product_id),
+    INDEX idx_vendor_id (vendor_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
-DROP TABLE IF EXISTS `reviews`;
-CREATE TABLE `reviews` (
-  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `customer_id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `order_id` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `rating` int NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `comment` text COLLATE utf8mb4_unicode_ci,
-  `is_verified_purchase` tinyint(1) DEFAULT '0',
-  `helpful_count` int DEFAULT '0',
-  `is_approved` tinyint(1) DEFAULT '1',
-  `vendor_response` text COLLATE utf8mb4_unicode_ci,
-  `responded_at` datetime DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_review` (`product_id`,`customer_id`,`order_id`),
-  KEY `order_id` (`order_id`),
-  KEY `idx_product_id` (`product_id`),
-  KEY `idx_customer_id` (`customer_id`),
-  KEY `idx_rating` (`rating`),
-  KEY `idx_is_approved` (`is_approved`),
-  CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `reviews_ibfk_3` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
-  CONSTRAINT `reviews_chk_1` CHECK (((`rating` >= 1) and (`rating` <= 5)))
+-- Reviews Table
+CREATE TABLE IF NOT EXISTS reviews (
+    id CHAR(36) PRIMARY KEY,
+    product_id CHAR(36) NOT NULL,
+    customer_id CHAR(36) NOT NULL,
+    order_id CHAR(36),
+    rating INT NOT NULL CHECK (rating >= 1 AND rating <= 5),
+    title VARCHAR(255),
+    comment TEXT,
+    is_verified_purchase BOOLEAN DEFAULT FALSE,
+    helpful_count INT DEFAULT 0,
+    is_approved BOOLEAN DEFAULT TRUE,
+    vendor_response TEXT,
+    responded_at DATETIME,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+    FOREIGN KEY (customer_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    INDEX idx_product_id (product_id),
+    INDEX idx_customer_id (customer_id),
+    INDEX idx_rating (rating),
+    INDEX idx_is_approved (is_approved),
+    UNIQUE KEY unique_review (product_id, customer_id, order_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
-  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `first_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `role` enum('customer','vendor','admin') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'customer',
-  `email_verified` tinyint(1) DEFAULT '0',
-  `verification_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `reset_password_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `reset_password_expire` datetime DEFAULT NULL,
-  `is_active` tinyint(1) DEFAULT '1',
-  `status` enum('active','suspended','inactive') COLLATE utf8mb4_unicode_ci DEFAULT 'active' COMMENT 'Account status for admin management',
-  `last_login` datetime DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`),
-  KEY `idx_email` (`email`),
-  KEY `idx_role` (`role`),
-  KEY `idx_email_verified` (`email_verified`),
-  KEY `idx_users_status` (`status`)
+-- Events Table
+CREATE TABLE IF NOT EXISTS events (
+    id CHAR(36) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    slug VARCHAR(255) NOT NULL UNIQUE,
+    description TEXT,
+    category ENUM('craft_fair', 'workshop', 'exhibition', 'marketplace', 'conference', 'networking', 'other') NOT NULL DEFAULT 'other',
+    event_type ENUM('physical', 'virtual', 'hybrid') NOT NULL DEFAULT 'physical',
+    location VARCHAR(500),
+    virtual_link VARCHAR(500),
+    start_date DATETIME NOT NULL,
+    end_date DATETIME NOT NULL,
+    registration_deadline DATETIME,
+    max_capacity INT,
+    current_participants INT DEFAULT 0,
+    requirements TEXT,
+    banner_image VARCHAR(500),
+    status ENUM('draft', 'published', 'ongoing', 'completed', 'cancelled') DEFAULT 'draft',
+    visibility ENUM('public', 'invite_only', 'private') DEFAULT 'public',
+    organizer_id CHAR(36),
+    tags JSON,
+    schedule JSON,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (organizer_id) REFERENCES vendors(id) ON DELETE CASCADE,
+    INDEX idx_organizer_id (organizer_id),
+    INDEX idx_status (status),
+    INDEX idx_category (category),
+    INDEX idx_start_date (start_date),
+    INDEX idx_visibility (visibility),
+    INDEX idx_slug (slug)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
-DROP TABLE IF EXISTS `vendors`;
-CREATE TABLE `vendors` (
-  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `business_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `business_description` text COLLATE utf8mb4_unicode_ci,
-  `logo_url` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `banner_url` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci,
-  `city` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `state` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `country` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `postal_code` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `business_phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `business_email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `website` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `username` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `facebook_url` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `instagram_url` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `twitter_url` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `linkedin_url` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `bank_account` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tax_id` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `commission_rate` decimal(5,2) NOT NULL DEFAULT '10.00',
-  `is_approved` tinyint(1) DEFAULT '0',
-  `status` enum('pending','approved','suspended','rejected') COLLATE utf8mb4_unicode_ci DEFAULT 'pending' COMMENT 'Vendor approval status',
-  `approved_at` datetime DEFAULT NULL,
-  `approved_by` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `rating` decimal(3,2) DEFAULT '0.00',
-  `total_sales` decimal(12,2) DEFAULT '0.00',
-  `total_orders` int DEFAULT '0',
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`),
-  KEY `idx_user_id` (`user_id`),
-  KEY `idx_is_approved` (`is_approved`),
-  KEY `idx_vendors_status` (`status`),
-  KEY `idx_business_name` (`business_name`),
-  KEY `idx_rating` (`rating`),
-  CONSTRAINT `vendors_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+-- Event Registrations Table
+CREATE TABLE IF NOT EXISTS event_registrations (
+    id CHAR(36) PRIMARY KEY,
+    event_id CHAR(36) NOT NULL,
+    vendor_id CHAR(36) NOT NULL,
+    status ENUM('pending', 'confirmed', 'waitlist', 'cancelled', 'attended') DEFAULT 'pending',
+    registration_date DATETIME NOT NULL,
+    notes TEXT,
+    rating INT CHECK (rating >= 1 AND rating <= 5),
+    feedback TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
+    FOREIGN KEY (vendor_id) REFERENCES vendors(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_event_vendor (event_id, vendor_id),
+    INDEX idx_event_id (event_id),
+    INDEX idx_vendor_id (vendor_id),
+    INDEX idx_status (status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- ============================================
+-- SEED DATA - Essential for application to run
+-- ============================================
 
--- 2025-10-20 22:34:15 UTC
+-- Insert default admin user (password: Admin123!)
+-- Password hash for 'Admin123!' with bcrypt rounds=12
+INSERT IGNORE INTO users (id, email, password, first_name, last_name, role, email_verified, is_active, status, created_at, updated_at)
+VALUES (
+    '550e8400-e29b-41d4-a716-446655440000',
+    'admin@handmadehub.com',
+    '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5nO4IjT0i8Dau',
+    'Admin',
+    'User',
+    'admin',
+    TRUE,
+    TRUE,
+    'active',
+    NOW(),
+    NOW()
+);
+
+-- Insert test accounts for development and demonstration
+-- All test accounts use password: Test123!
+-- Password hash for 'Test123!' with bcrypt rounds=12
+INSERT IGNORE INTO users (id, email, password, first_name, last_name, phone, role, email_verified, is_active, status, created_at, updated_at)
+VALUES 
+    ('550e8400-e29b-41d4-a716-446655440001', 'admin@test.com', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5nO4IjT0i8Dau', 'Test', 'Admin', '+1234567890', 'admin', TRUE, TRUE, 'active', NOW(), NOW()),
+    ('550e8400-e29b-41d4-a716-446655440002', 'vendor@test.com', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5nO4IjT0i8Dau', 'Test', 'Vendor', '+1234567891', 'vendor', TRUE, TRUE, 'active', NOW(), NOW()),
+    ('550e8400-e29b-41d4-a716-446655440003', 'customer@test.com', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5nO4IjT0i8Dau', 'Test', 'Customer', '+1234567892', 'customer', TRUE, TRUE, 'active', NOW(), NOW()),
+    ('550e8400-e29b-41d4-a716-446655440004', 'pending@test.com', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5nO4IjT0i8Dau', 'Pending', 'Vendor', '+1234567893', 'vendor', TRUE, TRUE, 'active', NOW(), NOW());
+
+-- Insert sample categories (Essential for product creation)
+INSERT IGNORE INTO categories (id, name, slug, description, is_active, display_order, created_at, updated_at) VALUES
+    ('650e8400-e29b-41d4-a716-446655440001', 'Jewelry', 'jewelry', 'Handmade jewelry including necklaces, bracelets, earrings', TRUE, 1, NOW(), NOW()),
+    ('650e8400-e29b-41d4-a716-446655440002', 'Home Decor', 'home-decor', 'Decorative items for your home', TRUE, 2, NOW(), NOW()),
+    ('650e8400-e29b-41d4-a716-446655440003', 'Art & Prints', 'art-prints', 'Original artwork and prints', TRUE, 3, NOW(), NOW()),
+    ('650e8400-e29b-41d4-a716-446655440004', 'Clothing', 'clothing', 'Handmade clothing and accessories', TRUE, 4, NOW(), NOW()),
+    ('650e8400-e29b-41d4-a716-446655440005', 'Toys & Games', 'toys-games', 'Handcrafted toys and games for children', TRUE, 5, NOW(), NOW()),
+    ('650e8400-e29b-41d4-a716-446655440006', 'Bath & Beauty', 'bath-beauty', 'Natural beauty and bath products', TRUE, 6, NOW(), NOW()),
+    ('650e8400-e29b-41d4-a716-446655440007', 'Food & Drink', 'food-drink', 'Homemade food items and beverages', TRUE, 7, NOW(), NOW()),
+    ('650e8400-e29b-41d4-a716-446655440008', 'Crafts & Supplies', 'crafts-supplies', 'Materials and supplies for crafting', TRUE, 8, NOW(), NOW());
+
+-- Insert vendor profiles for test accounts
+INSERT IGNORE INTO vendors (id, user_id, business_name, business_description, is_approved, approved_at, rating, created_at, updated_at)
+VALUES 
+    ('750e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440002', 'Test Vendor Store', 'A test vendor store with quality handmade products for demonstration', TRUE, NOW(), 4.5, NOW(), NOW()),
+    ('750e8400-e29b-41d4-a716-446655440002', '550e8400-e29b-41d4-a716-446655440004', 'Pending Vendor Store', 'A vendor store waiting for admin approval', FALSE, NULL, 0.0, NOW(), NOW());
+
+-- Insert sample products for the approved vendor
+INSERT IGNORE INTO products (id, vendor_id, category_id, title, slug, description, price, compare_at_price, stock_quantity, is_active, is_featured, status, views, sales_count, rating, review_count, created_at, updated_at)
+VALUES 
+    ('850e8400-e29b-41d4-a716-446655440001', '750e8400-e29b-41d4-a716-446655440001', '650e8400-e29b-41d4-a716-446655440001', 'Handmade Silver Necklace', 'handmade-silver-necklace', 'Beautiful handcrafted silver necklace with intricate designs', 49.99, 69.99, 15, TRUE, TRUE, 'approved', 125, 8, 4.8, 5, NOW(), NOW()),
+    ('850e8400-e29b-41d4-a716-446655440002', '750e8400-e29b-41d4-a716-446655440001', '650e8400-e29b-41d4-a716-446655440002', 'Wooden Wall Art', 'wooden-wall-art', 'Rustic wooden wall art perfect for home decoration', 79.99, 99.99, 10, TRUE, TRUE, 'approved', 89, 5, 4.6, 3, NOW(), NOW()),
+    ('850e8400-e29b-41d4-a716-446655440003', '750e8400-e29b-41d4-a716-446655440001', '650e8400-e29b-41d4-a716-446655440003', 'Custom Portrait Print', 'custom-portrait-print', 'Professional custom portrait prints on premium canvas', 129.99, 159.99, 20, TRUE, FALSE, 'approved', 56, 3, 5.0, 2, NOW(), NOW()),
+    ('850e8400-e29b-41d4-a716-446655440004', '750e8400-e29b-41d4-a716-446655440001', '650e8400-e29b-41d4-a716-446655440004', 'Knitted Wool Scarf', 'knitted-wool-scarf', 'Cozy hand-knitted wool scarf in various colors', 34.99, 44.99, 25, TRUE, FALSE, 'approved', 78, 12, 4.7, 7, NOW(), NOW()),
+    ('850e8400-e29b-41d4-a716-446655440005', '750e8400-e29b-41d4-a716-446655440001', '650e8400-e29b-41d4-a716-446655440006', 'Organic Soap Set', 'organic-soap-set', 'Set of 3 handmade organic soaps with natural ingredients', 24.99, 29.99, 50, TRUE, TRUE, 'approved', 142, 18, 4.9, 12, NOW(), NOW());
+
+-- Insert sample product images
+INSERT IGNORE INTO product_images (id, product_id, image_url, alt_text, is_primary, display_order, created_at, updated_at)
+VALUES 
+    ('950e8400-e29b-41d4-a716-446655440001', '850e8400-e29b-41d4-a716-446655440001', '/uploads/products/necklace-1.jpg', 'Silver necklace front view', TRUE, 1, NOW(), NOW()),
+    ('950e8400-e29b-41d4-a716-446655440002', '850e8400-e29b-41d4-a716-446655440002', '/uploads/products/wall-art-1.jpg', 'Wooden wall art', TRUE, 1, NOW(), NOW()),
+    ('950e8400-e29b-41d4-a716-446655440003', '850e8400-e29b-41d4-a716-446655440003', '/uploads/products/portrait-1.jpg', 'Custom portrait sample', TRUE, 1, NOW(), NOW()),
+    ('950e8400-e29b-41d4-a716-446655440004', '850e8400-e29b-41d4-a716-446655440004', '/uploads/products/scarf-1.jpg', 'Knitted wool scarf', TRUE, 1, NOW(), NOW()),
+    ('950e8400-e29b-41d4-a716-446655440005', '850e8400-e29b-41d4-a716-446655440005', '/uploads/products/soap-1.jpg', 'Organic soap set', TRUE, 1, NOW(), NOW());
+
+-- Insert sample events
+INSERT IGNORE INTO events (id, name, slug, description, category, event_type, location, start_date, end_date, registration_deadline, max_capacity, current_participants, status, visibility, organizer_id, is_active, created_at, updated_at)
+VALUES 
+    ('a50e8400-e29b-41d4-a716-446655440001', 'Annual Craft Fair 2025', 'annual-craft-fair-2025', 'Join us for the biggest craft fair of the year featuring local artisans and vendors', 'craft_fair', 'physical', 'Downtown Convention Center, Main Street', '2025-12-15 10:00:00', '2025-12-17 18:00:00', '2025-12-01 23:59:59', 100, 15, 'published', 'public', '750e8400-e29b-41d4-a716-446655440001', TRUE, NOW(), NOW()),
+    ('a50e8400-e29b-41d4-a716-446655440002', 'Jewelry Making Workshop', 'jewelry-making-workshop', 'Learn the art of jewelry making from experienced artisans', 'workshop', 'hybrid', 'Artisan Studio, 123 Craft Lane', '2025-11-20 14:00:00', '2025-11-20 17:00:00', '2025-11-15 23:59:59', 30, 8, 'published', 'public', '750e8400-e29b-41d4-a716-446655440001', TRUE, NOW(), NOW());
+
+-- ============================================
+-- COMPLETION MESSAGE
+-- ============================================
+SELECT '✅ Database schema created successfully!' AS Status;
+SELECT '📧 Default Admin Account:' AS Info;
+SELECT '   Email: admin@handmadehub.com' AS '';
+SELECT '   Password: Admin123!' AS '';
+SELECT '' AS '';
+SELECT '📧 Test Accounts (Password: Test123!):' AS Info;
+SELECT '   Admin: admin@test.com' AS '';
+SELECT '   Vendor: vendor@test.com' AS '';
+SELECT '   Customer: customer@test.com' AS '';
+SELECT '   Pending Vendor: pending@test.com' AS '';
