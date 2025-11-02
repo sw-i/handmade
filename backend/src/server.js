@@ -13,20 +13,35 @@ process.on('uncaughtException', (err) => {
 
 // Connect to database and seed test data
 const startServer = async () => {
-  await connectDB();
-  
-  // Seed test users in development
-  if (process.env.NODE_ENV === 'development') {
-    await seedTestUsers();
+  try {
+    // Connect to database with retry logic
+    await connectDB();
+    
+    // Seed test users (check if already seeded first)
+    try {
+      const [users] = await require('./config/database').sequelize.query("SELECT COUNT(*) as count FROM users");
+      if (users[0].count === 0) {
+        logger.info('No users found, seeding database...');
+        await seedTestUsers();
+      } else {
+        logger.info(`Database already has ${users[0].count} users, skipping seed`);
+      }
+    } catch (seedError) {
+      logger.warn('Seed check/execution failed (non-critical):', seedError.message);
+    }
+
+    // Start server
+    const server = app.listen(PORT, () => {
+      logger.info(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+      logger.info(`API URL: http://localhost:${PORT}/api/${process.env.API_VERSION || 'v1'}`);
+      logger.info('Backend is ready to accept requests');
+    });
+
+    return server;
+  } catch (error) {
+    logger.error('Failed to start server:', error);
+    process.exit(1);
   }
-
-  // Start server
-  const server = app.listen(PORT, () => {
-    logger.info(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
-    logger.info(`API URL: http://localhost:${PORT}/api/${process.env.API_VERSION || 'v1'}`);
-  });
-
-  return server;
 };
 
 startServer().then((server) => {

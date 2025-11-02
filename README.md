@@ -1,12 +1,34 @@
-# Handmade Hub - E-Commerce Platform for Artisans# Handmade Hub - Full-Stack SaaS Platform
+# Handmade Hub - Full-Stack E-Commerce Platform
 
+Production-ready marketplace platform for home-based entrepreneurs to sell handcrafted products.
 
+## ⚡ Quick Start with Docker
 
-A comprehensive full-stack marketplace platform designed to empower home-based entrepreneurs and artisans to sell their handcrafted products online.Production-ready marketplace platform for home-based entrepreneurs to sell handcrafted products.
+**Want to run this project immediately? See [DOCKER_SETUP.md](./DOCKER_SETUP.md) for step-by-step instructions.**
 
+```bash
+# 1. Clone repository
+git clone https://github.com/sw-i/handmade.git
+cd handmade
 
+# 2. Create .env file
+cp .env.example .env
+# Edit .env with your values
 
-## 🚀 Project Overview## 🚀 Project Overview
+# 3. Start everything
+docker-compose up -d
+
+# 4. Visit http://localhost:3000
+```
+
+**Login with test account:**
+- Admin: `admin@handmadehub.com` / `Admin123!`
+- Vendor: `vendor@test.com` / `Test123!`
+- Customer: `customer@test.com` / `Test123!`
+
+---
+
+## 🚀 Project Overview
 
 
 
