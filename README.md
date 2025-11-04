@@ -59,10 +59,7 @@ Handmade Hub is a production-ready e-commerce platform featuring:Handmade Hub is
 
 
 ## 📁 Project Structure## 📁 Project Structure
-
-
-
-``````
+```
 
 handmade-hub/handmade-hub/
 
@@ -132,13 +129,12 @@ handmade-hub/handmade-hub/
 
 └── .env.example          # Environment variables template│       └── ci-cd.yml     # GitHub Actions pipeline
 
-```│
-
 ├── docker-compose.yml    # Multi-service orchestration
+
+```
 
 ## 🛠️ Technology Stack└── README.md             # This file
 
-```
 
 ### Backend
 
