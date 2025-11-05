@@ -63,6 +63,13 @@ CREATE TABLE IF NOT EXISTS vendors (
     business_phone VARCHAR(20),
     business_email VARCHAR(255),
     website VARCHAR(500),
+    username VARCHAR(50) UNIQUE,
+    facebook_url VARCHAR(500),
+    instagram_url VARCHAR(500),
+    twitter_url VARCHAR(500),
+    linkedin_url VARCHAR(500),
+    bank_account VARCHAR(100),
+    tax_id VARCHAR(50),
     commission_rate DECIMAL(5,2) DEFAULT 10.00 NOT NULL,
     is_approved BOOLEAN DEFAULT FALSE,
     approved_at DATETIME,
@@ -76,7 +83,8 @@ CREATE TABLE IF NOT EXISTS vendors (
     INDEX idx_user_id (user_id),
     INDEX idx_is_approved (is_approved),
     INDEX idx_business_name (business_name),
-    INDEX idx_rating (rating)
+    INDEX idx_rating (rating),
+    INDEX idx_username (username)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Products Table
@@ -101,6 +109,7 @@ CREATE TABLE IF NOT EXISTS products (
     is_featured BOOLEAN DEFAULT FALSE,
     status ENUM('pending', 'approved', 'rejected') DEFAULT 'approved' COMMENT 'Admin moderation status',
     flagged BOOLEAN DEFAULT FALSE COMMENT 'Flagged for admin review',
+    display_order INT DEFAULT 0 COMMENT 'Priority in appearance - higher values appear first',
     views INT DEFAULT 0,
     sales_count INT DEFAULT 0,
     rating DECIMAL(3,2) DEFAULT 0.00,
@@ -288,7 +297,7 @@ INSERT IGNORE INTO users (id, email, password, first_name, last_name, role, emai
 VALUES (
     '550e8400-e29b-41d4-a716-446655440000',
     'admin@handmadehub.com',
-    '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5nO4IjT0i8Dau',
+    '$2a$12$e7jSnX1.6PRK3oi/ETQ8m.wy1T2ekSdmJ8FkX666FeEwtWMzaelMm',
     'Admin',
     'User',
     'admin',
@@ -304,10 +313,10 @@ VALUES (
 -- Password hash for 'Test123!' with bcrypt rounds=12
 INSERT IGNORE INTO users (id, email, password, first_name, last_name, phone, role, email_verified, is_active, status, created_at, updated_at)
 VALUES 
-    ('550e8400-e29b-41d4-a716-446655440001', 'admin@test.com', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5nO4IjT0i8Dau', 'Test', 'Admin', '+1234567890', 'admin', TRUE, TRUE, 'active', NOW(), NOW()),
-    ('550e8400-e29b-41d4-a716-446655440002', 'vendor@test.com', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5nO4IjT0i8Dau', 'Test', 'Vendor', '+1234567891', 'vendor', TRUE, TRUE, 'active', NOW(), NOW()),
-    ('550e8400-e29b-41d4-a716-446655440003', 'customer@test.com', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5nO4IjT0i8Dau', 'Test', 'Customer', '+1234567892', 'customer', TRUE, TRUE, 'active', NOW(), NOW()),
-    ('550e8400-e29b-41d4-a716-446655440004', 'pending@test.com', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5nO4IjT0i8Dau', 'Pending', 'Vendor', '+1234567893', 'vendor', TRUE, TRUE, 'active', NOW(), NOW());
+    ('550e8400-e29b-41d4-a716-446655440001', 'admin@test.com', '$2a$12$wyJGLutgynyCz8Si/i8SD.L3UzxTYAAYleN7euOljaC17YKHFg6IG', 'Test', 'Admin', '+1234567890', 'admin', TRUE, TRUE, 'active', NOW(), NOW()),
+    ('550e8400-e29b-41d4-a716-446655440002', 'vendor@test.com', '$2a$12$wyJGLutgynyCz8Si/i8SD.L3UzxTYAAYleN7euOljaC17YKHFg6IG', 'Test', 'Vendor', '+1234567891', 'vendor', TRUE, TRUE, 'active', NOW(), NOW()),
+    ('550e8400-e29b-41d4-a716-446655440003', 'customer@test.com', '$2a$12$wyJGLutgynyCz8Si/i8SD.L3UzxTYAAYleN7euOljaC17YKHFg6IG', 'Test', 'Customer', '+1234567892', 'customer', TRUE, TRUE, 'active', NOW(), NOW()),
+    ('550e8400-e29b-41d4-a716-446655440004', 'pending@test.com', '$2a$12$wyJGLutgynyCz8Si/i8SD.L3UzxTYAAYleN7euOljaC17YKHFg6IG', 'Pending', 'Vendor', '+1234567893', 'vendor', TRUE, TRUE, 'active', NOW(), NOW());
 
 -- Insert sample categories (Essential for product creation)
 INSERT IGNORE INTO categories (id, name, slug, description, is_active, display_order, created_at, updated_at) VALUES
