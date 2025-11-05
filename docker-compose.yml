@@ -1,9 +1,9 @@
-version: '3.8'
-
 services:
   # MySQL Database
   mysql:
-    image: mysql:8.0
+    build:
+      context: ./database
+      dockerfile: Dockerfile
     container_name: handmade-hub-db
     restart: unless-stopped
     environment:
@@ -15,7 +15,6 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     networks:
       - handmade-hub-network
     healthcheck:
@@ -75,7 +74,9 @@ services:
 
   # Adminer - Database Management UI
   adminer:
-    image: adminer:latest
+    build:
+      context: ./adminer
+      dockerfile: Dockerfile
     container_name: handmade-hub-adminer
     restart: unless-stopped
     ports:
@@ -89,22 +90,11 @@ services:
     networks:
       - handmade-hub-network
 
-  # Nginx Reverse Proxy (optional)
-  nginx:
-    image: nginx:alpine
-    container_name: handmade-hub-nginx
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/ssl:/etc/nginx/ssl:ro
-    depends_on:
-      - backend
-      - frontend
-    networks:
-      - handmade-hub-network
+  # Removed nginx - not needed for development
+  # Access directly via:
+  # Frontend: http://localhost:3000
+  # Backend: http://localhost:5000
+  # Adminer: http://localhost:8080
 
 volumes:
   mysql_data:

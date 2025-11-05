@@ -2,6 +2,8 @@
 
 This guide will help you run the Handmade Hub project using Docker on any machine.
 
+> **⚠️ Having Issues?** See [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) for detailed solutions to common problems.
+
 ## Prerequisites
 
 - Docker Desktop installed (includes Docker Compose)

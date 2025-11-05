@@ -4,7 +4,10 @@ Production-ready marketplace platform for home-based entrepreneurs to sell handc
 
 ## ⚡ Quick Start with Docker
 
-**Want to run this project immediately? See [DOCKER_SETUP.md](./DOCKER_SETUP.md) for step-by-step instructions.**
+**Choose your setup method:**
+
+### 🌐 Online Setup (With Internet)
+See [DOCKER_SETUP.md](./DOCKER_SETUP.md) for step-by-step instructions.
 
 ```bash
 # 1. Clone repository
@@ -13,7 +16,6 @@ cd handmade
 
 # 2. Create .env file
 cp .env.example .env
-# Edit .env with your values
 
 # 3. Start everything
 docker-compose up -d
@@ -21,10 +23,26 @@ docker-compose up -d
 # 4. Visit http://localhost:3000
 ```
 
+### 📦 Offline Setup (No Internet / Network Issues)
+See [OFFLINE_SETUP.md](./OFFLINE_SETUP.md) for offline installation guide.
+
+```powershell
+# On machine with internet: Save images
+.\save-docker-images.ps1
+
+# Transfer docker-images folder to target machine
+
+# On target machine: Load images and start
+.\load-docker-images.ps1
+docker-compose up -d
+```
+
 **Login with test account:**
 - Admin: `admin@handmadehub.com` / `Admin123!`
 - Vendor: `vendor@test.com` / `Test123!`
 - Customer: `customer@test.com` / `Test123!`
+
+> **⚠️ Network Issues?** See [NETWORK_ISSUES.md](./NETWORK_ISSUES.md) for DNS/connectivity troubleshooting.
 
 ---
 
