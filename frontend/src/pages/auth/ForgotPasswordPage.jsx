@@ -32,11 +32,11 @@ const ForgotPasswordPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-blue-50 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-blue-50 p-4">
       <Card className="w-full max-w-md p-8">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Mail className="w-8 h-8 text-indigo-600" />
+          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Mail className="w-8 h-8 text-red-600" />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Forgot Password?</h1>
           <p className="text-gray-600">
@@ -70,7 +70,7 @@ const ForgotPasswordPage = () => {
         </form>
 
         <div className="mt-6 text-center">
-          <Link to="/login" className="inline-flex items-center text-indigo-600 hover:text-indigo-700 font-medium">
+          <Link to="/login" className="inline-flex items-center text-red-600 hover:text-red-700 font-medium">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Login
           </Link>

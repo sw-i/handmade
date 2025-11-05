@@ -40,17 +40,29 @@ const Product = sequelize.define('Product', {
   price: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
+    get() {
+      const value = this.getDataValue('price');
+      return value === null ? null : parseFloat(value);
+    },
     validate: {
       min: 0
     }
   },
   compareAtPrice: {
     type: DataTypes.DECIMAL(10, 2),
-    allowNull: true
+    allowNull: true,
+    get() {
+      const value = this.getDataValue('compareAtPrice');
+      return value === null ? null : parseFloat(value);
+    }
   },
   costPerItem: {
     type: DataTypes.DECIMAL(10, 2),
-    allowNull: true
+    allowNull: true,
+    get() {
+      const value = this.getDataValue('costPerItem');
+      return value === null ? null : parseFloat(value);
+    }
   },
   stockQuantity: {
     type: DataTypes.INTEGER,
@@ -69,7 +81,11 @@ const Product = sequelize.define('Product', {
   },
   weight: {
     type: DataTypes.DECIMAL(8, 2),
-    allowNull: true
+    allowNull: true,
+    get() {
+      const value = this.getDataValue('weight');
+      return value === null ? null : parseFloat(value);
+    }
   },
   weightUnit: {
     type: DataTypes.ENUM('kg', 'g', 'lb', 'oz'),
@@ -119,6 +135,10 @@ const Product = sequelize.define('Product', {
   rating: {
     type: DataTypes.DECIMAL(3, 2),
     defaultValue: 0.00,
+    get() {
+      const value = this.getDataValue('rating');
+      return value === null ? null : parseFloat(value);
+    },
     validate: {
       min: 0,
       max: 5

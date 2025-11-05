@@ -131,9 +131,9 @@ const AdminSupportPage = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600">In Progress</p>
-              <p className="text-3xl font-bold text-blue-600">{stats.inProgress}</p>
+              <p className="text-3xl font-bold text-red-600">{stats.inProgress}</p>
             </div>
-            <Clock className="w-10 h-10 text-blue-600" />
+            <Clock className="w-10 h-10 text-red-600" />
           </div>
         </Card>
         <Card className="p-6">
@@ -176,7 +176,7 @@ const AdminSupportPage = () => {
                 onClick={() => setStatusFilter(status)}
                 className={`px-6 py-2.5 text-base font-semibold rounded-lg whitespace-nowrap transition ${
                   statusFilter === status
-                    ? 'bg-indigo-600 text-white'
+                    ? 'bg-red-600 text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
                 }`}
               >
@@ -235,7 +235,7 @@ const AdminSupportPage = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <span className="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm font-medium">
+                    <span className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium">
                       {ticket.category}
                     </span>
                   </td>
@@ -252,7 +252,7 @@ const AdminSupportPage = () => {
                   <td className="px-6 py-4">
                     <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-semibold ${
                       ticket.status === 'open' ? 'bg-orange-100 text-orange-800' : 
-                      ticket.status === 'in_progress' ? 'bg-blue-100 text-blue-800' : 
+                      ticket.status === 'in_progress' ? 'bg-red-100 text-red-800' : 
                       'bg-green-100 text-green-800'
                     }`}>
                       {ticket.status === 'open' && <MessageSquare className="w-4 h-4" />}

@@ -90,7 +90,7 @@ const AdminCustomersPage = () => {
         <div className="flex items-center gap-4">
           <div className="text-right">
             <p className="text-sm text-gray-600">Total Customers</p>
-            <p className="text-2xl font-bold text-indigo-600">{customers.length}</p>
+            <p className="text-2xl font-bold text-red-600">{customers.length}</p>
           </div>
         </div>
       </div>
@@ -115,7 +115,7 @@ const AdminCustomersPage = () => {
                 onClick={() => setStatusFilter(status)}
                 className={`px-6 py-2.5 text-base font-semibold rounded-lg whitespace-nowrap transition ${
                   statusFilter === status
-                    ? 'bg-indigo-600 text-white'
+                    ? 'bg-red-600 text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
                 }`}
               >

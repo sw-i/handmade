@@ -7,7 +7,7 @@ const PrivacyPolicyPage = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <Shield className="w-16 h-16 text-indigo-600 mx-auto mb-4" />
+          <Shield className="w-16 h-16 text-red-600 mx-auto mb-4" />
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Privacy Policy</h1>
           <p className="text-gray-600">Last updated: October 20, 2025</p>
         </div>
@@ -27,7 +27,7 @@ const PrivacyPolicyPage = () => {
           {/* Information We Collect */}
           <section>
             <div className="flex items-center gap-3 mb-4">
-              <Database className="w-6 h-6 text-indigo-600" />
+              <Database className="w-6 h-6 text-red-600" />
               <h2 className="text-2xl font-bold text-gray-900">Information We Collect</h2>
             </div>
             
@@ -64,7 +64,7 @@ const PrivacyPolicyPage = () => {
           {/* How We Use Your Information */}
           <section>
             <div className="flex items-center gap-3 mb-4">
-              <UserCheck className="w-6 h-6 text-indigo-600" />
+              <UserCheck className="w-6 h-6 text-red-600" />
               <h2 className="text-2xl font-bold text-gray-900">How We Use Your Information</h2>
             </div>
             
@@ -85,7 +85,7 @@ const PrivacyPolicyPage = () => {
           {/* Data Sharing */}
           <section>
             <div className="flex items-center gap-3 mb-4">
-              <Eye className="w-6 h-6 text-indigo-600" />
+              <Eye className="w-6 h-6 text-red-600" />
               <h2 className="text-2xl font-bold text-gray-900">Information Sharing and Disclosure</h2>
             </div>
             
@@ -128,7 +128,7 @@ const PrivacyPolicyPage = () => {
           {/* Data Security */}
           <section>
             <div className="flex items-center gap-3 mb-4">
-              <Lock className="w-6 h-6 text-indigo-600" />
+              <Lock className="w-6 h-6 text-red-600" />
               <h2 className="text-2xl font-bold text-gray-900">Data Security</h2>
             </div>
             
@@ -192,9 +192,9 @@ const PrivacyPolicyPage = () => {
           </section>
 
           {/* Contact */}
-          <section className="bg-indigo-50 rounded-lg p-6">
+          <section className="bg-red-50 rounded-lg p-6">
             <div className="flex items-center gap-3 mb-4">
-              <Mail className="w-6 h-6 text-indigo-600" />
+              <Mail className="w-6 h-6 text-red-600" />
               <h2 className="text-2xl font-bold text-gray-900">Contact Us</h2>
             </div>
             <p className="text-gray-700 leading-relaxed mb-3">

@@ -172,7 +172,7 @@ const ChatWidget = () => {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-full px-5 py-3 shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center gap-2 z-50 group"
+          className="fixed bottom-6 right-6 bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-700 hover:to-purple-700 text-white rounded-full px-5 py-3 shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center gap-2 z-50 group"
         >
           <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
           <span className="font-medium">Assistant</span>
@@ -183,7 +183,7 @@ const ChatWidget = () => {
       {isOpen && (
         <div className="fixed bottom-6 right-6 w-[400px] h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 animate-slideIn">
           {/* Header */}
-          <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-t-2xl p-4 flex items-center justify-between">
+          <div className="bg-gradient-to-r from-red-600 to-purple-600 rounded-t-2xl p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
                 <Bot className="w-6 h-6 text-white" />
@@ -202,7 +202,7 @@ const ChatWidget = () => {
           </div>
 
           {/* Messages Container */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gradient-to-br from-indigo-50/50 via-purple-50/50 to-pink-50/50">
+          <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gradient-to-br from-red-50/50 via-purple-50/50 to-pink-50/50">
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -213,8 +213,8 @@ const ChatWidget = () => {
                 {/* Avatar */}
                 <div className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center ${
                   message.role === 'user'
-                    ? 'bg-indigo-600'
-                    : 'bg-gradient-to-br from-purple-500 to-indigo-600'
+                    ? 'bg-red-600'
+                    : 'bg-gradient-to-br from-purple-500 to-red-600'
                 }`}>
                   {message.role === 'user' ? (
                     <User className="w-4 h-4 text-white" />
@@ -229,7 +229,7 @@ const ChatWidget = () => {
                 }`}>
                   <div className={`rounded-xl px-3 py-2 ${
                     message.role === 'user'
-                      ? 'bg-indigo-600 text-white'
+                      ? 'bg-red-600 text-white'
                       : message.isError
                       ? 'bg-red-50 text-red-900 border border-red-200'
                       : 'bg-white text-gray-900 shadow-sm'
@@ -242,7 +242,7 @@ const ChatWidget = () => {
                     </p>
                     <p className={`text-xs mt-1 ${
                       message.role === 'user'
-                        ? 'text-indigo-200'
+                        ? 'text-red-200'
                         : message.isError
                         ? 'text-red-600'
                         : 'text-gray-500'
@@ -267,7 +267,7 @@ const ChatWidget = () => {
                 placeholder="Ask me anything about Handmade Hub..."
                 disabled={isLoading}
                 rows="1"
-                className="flex-1 resize-none rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 resize-none rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{ maxHeight: '80px' }}
                 onInput={(e) => {
                   e.target.style.height = 'auto';
@@ -277,7 +277,7 @@ const ChatWidget = () => {
               <button
                 onClick={handleSendMessage}
                 disabled={!inputMessage.trim() || isLoading}
-                className="flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white flex items-center justify-center transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-indigo-600 disabled:hover:to-purple-600 shadow-md hover:shadow-lg"
+                className="flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-700 hover:to-purple-700 text-white flex items-center justify-center transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-red-600 disabled:hover:to-purple-600 shadow-md hover:shadow-lg"
               >
                 {isLoading ? (
                   <Loader className="w-4 h-4 animate-spin" />
@@ -293,7 +293,7 @@ const ChatWidget = () => {
               {messages.length > 1 && (
                 <button
                   onClick={clearHistory}
-                  className="text-xs text-gray-500 hover:text-indigo-600 transition-colors"
+                  className="text-xs text-gray-500 hover:text-red-600 transition-colors"
                 >
                   Clear history
                 </button>

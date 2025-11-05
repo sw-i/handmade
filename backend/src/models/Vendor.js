@@ -100,7 +100,11 @@ const Vendor = sequelize.define('Vendor', {
   commissionRate: {
     type: DataTypes.DECIMAL(5, 2),
     defaultValue: 10.00,
-    allowNull: false
+    allowNull: false,
+    get() {
+      const value = this.getDataValue('commissionRate');
+      return value === null ? null : parseFloat(value);
+    }
   },
   isApproved: {
     type: DataTypes.BOOLEAN,
@@ -117,6 +121,10 @@ const Vendor = sequelize.define('Vendor', {
   rating: {
     type: DataTypes.DECIMAL(3, 2),
     defaultValue: 0.00,
+    get() {
+      const value = this.getDataValue('rating');
+      return value === null ? null : parseFloat(value);
+    },
     validate: {
       min: 0,
       max: 5
@@ -124,7 +132,11 @@ const Vendor = sequelize.define('Vendor', {
   },
   totalSales: {
     type: DataTypes.DECIMAL(12, 2),
-    defaultValue: 0.00
+    defaultValue: 0.00,
+    get() {
+      const value = this.getDataValue('totalSales');
+      return value === null ? null : parseFloat(value);
+    }
   },
   totalOrders: {
     type: DataTypes.INTEGER,

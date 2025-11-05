@@ -39,7 +39,7 @@ const AdminDashboard = () => {
       <div className="flex justify-center items-center min-h-screen">
         <div className="text-center">
           <p className="text-red-600 mb-4">{error}</p>
-          <button onClick={loadStats} className="px-6 py-2.5 text-base font-semibold rounded-lg bg-indigo-600 text-white">Retry</button>
+          <button onClick={loadStats} className="px-6 py-2.5 text-base font-semibold rounded-lg bg-red-600 text-white">Retry</button>
         </div>
       </div>
     );
@@ -60,8 +60,8 @@ const AdminDashboard = () => {
               <p className="text-3xl font-bold text-gray-900">{stats.totalUsers}</p>
               <p className="text-sm text-green-600 mt-1">+8% this month</p>
             </div>
-            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-              <Users className="w-6 h-6 text-blue-600" />
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+              <Users className="w-6 h-6 text-red-600" />
             </div>
           </div>
         </Card>
@@ -71,10 +71,10 @@ const AdminDashboard = () => {
             <div>
               <p className="text-sm text-gray-600 mb-1">Active Vendors</p>
               <p className="text-3xl font-bold text-gray-900">{stats.totalVendors}</p>
-              <p className="text-sm text-blue-600 mt-1">{stats.pendingVendors} pending approval</p>
+              <p className="text-sm text-red-600 mt-1">{stats.pendingVendors} pending approval</p>
             </div>
-            <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-              <Store className="w-6 h-6 text-indigo-600" />
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+              <Store className="w-6 h-6 text-red-600" />
             </div>
           </div>
         </Card>
@@ -112,7 +112,7 @@ const AdminDashboard = () => {
               <p className="text-3xl font-bold text-gray-900">
                 ${stats.totalOrders > 0 ? (Number(stats.totalRevenue) / Number(stats.totalOrders)).toFixed(2) : '0.00'}
               </p>
-              <p className="text-sm text-indigo-600 mt-1">Per transaction</p>
+              <p className="text-sm text-red-600 mt-1">Per transaction</p>
             </div>
             <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
               <TrendingUp className="w-6 h-6 text-purple-600" />
@@ -141,15 +141,15 @@ const AdminDashboard = () => {
           <h2 className="text-xl font-bold text-gray-900 mb-6">Quick Actions</h2>
           <div className="space-y-3">
             <Link to="/admin/vendors">
-              <button className="w-full p-3 bg-indigo-50 hover:bg-indigo-100 rounded-lg text-left transition">
-                <p className="font-semibold text-indigo-900 text-base">Manage Vendors</p>
-                <p className="text-sm text-indigo-600">Approve or review vendor applications</p>
+              <button className="w-full p-3 bg-red-50 hover:bg-red-100 rounded-lg text-left transition">
+                <p className="font-semibold text-red-900 text-base">Manage Vendors</p>
+                <p className="text-sm text-red-600">Approve or review vendor applications</p>
               </button>
             </Link>
             <Link to="/admin/customers">
-              <button className="w-full p-3 bg-blue-50 hover:bg-blue-100 rounded-lg text-left transition">
-                <p className="font-semibold text-blue-900 text-base">Manage Customers</p>
-                <p className="text-sm text-blue-600">View and manage all platform customers</p>
+              <button className="w-full p-3 bg-red-50 hover:bg-red-100 rounded-lg text-left transition">
+                <p className="font-semibold text-red-900 text-base">Manage Customers</p>
+                <p className="text-sm text-red-600">View and manage all platform customers</p>
               </button>
             </Link>
             <Link to="/admin/products">
@@ -189,7 +189,7 @@ const AdminDashboard = () => {
               { action: 'Vendor approved', vendor: 'Home Decor Co', time: '2 hours ago', type: 'approval' }
             ].map((activity, idx) => (
               <div key={idx} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                <div className="w-2 h-2 bg-indigo-600 rounded-full mt-2" />
+                <div className="w-2 h-2 bg-red-600 rounded-full mt-2" />
                 <div className="flex-1">
                   <p className="text-sm font-semibold text-gray-900">{activity.action}</p>
                   <p className="text-sm text-gray-600">

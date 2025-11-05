@@ -59,17 +59,17 @@ const ContactPage = () => {
 
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <Mail className="w-6 h-6 text-indigo-600 flex-shrink-0 mt-1" />
+                  <Mail className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-900">Email</h3>
-                    <a href="mailto:support@handmadehub.com" className="text-gray-600 hover:text-indigo-600">
+                    <a href="mailto:support@handmadehub.com" className="text-gray-600 hover:text-red-600">
                       support@handmadehub.com
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <Phone className="w-6 h-6 text-indigo-600 flex-shrink-0 mt-1" />
+                  <Phone className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-900">Phone</h3>
                     <p className="text-gray-600">+1 (555) 123-4567</p>
@@ -78,7 +78,7 @@ const ContactPage = () => {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <MapPin className="w-6 h-6 text-indigo-600 flex-shrink-0 mt-1" />
+                  <MapPin className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-900">Address</h3>
                     <p className="text-gray-600">
@@ -93,16 +93,16 @@ const ContactPage = () => {
               <div className="pt-6 border-t">
                 <h3 className="font-semibold text-gray-900 mb-3">Quick Links</h3>
                 <div className="space-y-2">
-                  <a href="/support" className="block text-indigo-600 hover:text-indigo-700">
+                  <a href="/support" className="block text-red-600 hover:text-red-700">
                     Support Center →
                   </a>
-                  <a href="/help" className="block text-indigo-600 hover:text-indigo-700">
+                  <a href="/help" className="block text-red-600 hover:text-red-700">
                     Help Center →
                   </a>
-                  <a href="/faq" className="block text-indigo-600 hover:text-indigo-700">
+                  <a href="/faq" className="block text-red-600 hover:text-red-700">
                     FAQ →
                   </a>
-                  <a href="/chatbot" className="block text-indigo-600 hover:text-indigo-700">
+                  <a href="/chatbot" className="block text-red-600 hover:text-red-700">
                     Chat Bot →
                   </a>
                 </div>
@@ -128,7 +128,7 @@ const ContactPage = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                       placeholder="Your name"
                     />
                   </div>
@@ -144,7 +144,7 @@ const ContactPage = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                       placeholder="your@email.com"
                     />
                   </div>
@@ -160,7 +160,7 @@ const ContactPage = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                     placeholder="How can we help?"
                   />
                 </div>
@@ -176,14 +176,14 @@ const ContactPage = () => {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none"
                     placeholder="Tell us more about your inquiry..."
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2"
+                  className="w-full bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors flex items-center justify-center gap-2"
                 >
                   <Send className="w-5 h-5" />
                   Send Message

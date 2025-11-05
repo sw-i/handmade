@@ -181,7 +181,7 @@ const VendorEventsPage = () => {
   const getStatusBadgeColor = (status) => {
     const colors = {
       draft: 'bg-gray-100 text-gray-800',
-      published: 'bg-blue-100 text-blue-800',
+      published: 'bg-red-100 text-red-800',
       ongoing: 'bg-green-100 text-green-800',
       completed: 'bg-purple-100 text-purple-800',
       cancelled: 'bg-red-100 text-red-800',
@@ -277,7 +277,7 @@ const VendorEventsPage = () => {
             onClick={() => setFilters({ ...filters, myRegistrations: !filters.myRegistrations })}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filters.myRegistrations
-                ? 'bg-blue-600 text-white'
+                ? 'bg-red-600 text-white'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
@@ -457,7 +457,7 @@ const VendorEventsPage = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div className="flex items-center gap-3">
-                  <Calendar className="text-blue-600" size={20} />
+                  <Calendar className="text-red-600" size={20} />
                   <div>
                     <p className="text-sm text-gray-600">Dates</p>
                     <p className="font-medium text-gray-900">
@@ -467,7 +467,7 @@ const VendorEventsPage = () => {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <MapPin className="text-blue-600" size={20} />
+                  <MapPin className="text-red-600" size={20} />
                   <div>
                     <p className="text-sm text-gray-600">Location</p>
                     <p className="font-medium text-gray-900">
@@ -478,7 +478,7 @@ const VendorEventsPage = () => {
 
                 {selectedEvent.maxCapacity && (
                   <div className="flex items-center gap-3">
-                    <Users className="text-blue-600" size={20} />
+                    <Users className="text-red-600" size={20} />
                     <div>
                       <p className="text-sm text-gray-600">Capacity</p>
                       <p className="font-medium text-gray-900">
@@ -490,7 +490,7 @@ const VendorEventsPage = () => {
 
                 {selectedEvent.registrationDeadline && (
                   <div className="flex items-center gap-3">
-                    <Clock className="text-blue-600" size={20} />
+                    <Clock className="text-red-600" size={20} />
                     <div>
                       <p className="text-sm text-gray-600">Registration Deadline</p>
                       <p className="font-medium text-gray-900">

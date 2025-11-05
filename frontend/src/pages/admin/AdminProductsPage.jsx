@@ -119,7 +119,7 @@ const AdminProductsPage = () => {
               <p className="text-sm text-gray-600">Total Products</p>
               <p className="text-3xl font-bold text-gray-900">{stats.total}</p>
             </div>
-            <Package className="w-10 h-10 text-indigo-600" />
+            <Package className="w-10 h-10 text-red-600" />
           </div>
         </Card>
         <Card className="p-6">
@@ -171,7 +171,7 @@ const AdminProductsPage = () => {
                 onClick={() => setStatusFilter(status)}
                 className={`px-6 py-2.5 text-base font-semibold rounded-lg whitespace-nowrap transition ${
                   statusFilter === status
-                    ? 'bg-indigo-600 text-white'
+                    ? 'bg-red-600 text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
                 }`}
               >

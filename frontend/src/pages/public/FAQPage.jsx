@@ -127,7 +127,7 @@ const FAQPage = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <HelpCircle className="w-16 h-16 text-indigo-600 mx-auto mb-4" />
+          <HelpCircle className="w-16 h-16 text-red-600 mx-auto mb-4" />
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h1>
           <p className="text-xl text-gray-600">
             Find quick answers to common questions about Handmade Hub
@@ -148,11 +148,11 @@ const FAQPage = () => {
                     <div key={questionIndex} className="border-b border-gray-200 last:border-0 pb-4 last:pb-0">
                       <button
                         onClick={() => toggleQuestion(categoryIndex, questionIndex)}
-                        className="w-full flex items-center justify-between text-left py-2 hover:text-indigo-600 transition-colors"
+                        className="w-full flex items-center justify-between text-left py-2 hover:text-red-600 transition-colors"
                       >
                         <span className="font-semibold text-gray-900">{item.question}</span>
                         {isOpen ? (
-                          <ChevronUp className="w-5 h-5 text-indigo-600 flex-shrink-0" />
+                          <ChevronUp className="w-5 h-5 text-red-600 flex-shrink-0" />
                         ) : (
                           <ChevronDown className="w-5 h-5 text-gray-400 flex-shrink-0" />
                         )}
@@ -171,7 +171,7 @@ const FAQPage = () => {
         </div>
 
         {/* Still Have Questions */}
-        <div className="mt-12 bg-indigo-50 rounded-lg p-8 text-center">
+        <div className="mt-12 bg-red-50 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Still have questions?</h2>
           <p className="text-gray-600 mb-6">
             Can't find the answer you're looking for? Our support team is ready to help.
@@ -179,19 +179,19 @@ const FAQPage = () => {
           <div className="flex flex-wrap justify-center gap-4">
             <a
               href="/contact"
-              className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition-colors"
+              className="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors"
             >
               Contact Us
             </a>
             <a
               href="/chatbot"
-              className="bg-white text-indigo-600 px-6 py-3 rounded-lg hover:bg-indigo-50 transition-colors border border-indigo-600"
+              className="bg-white text-red-600 px-6 py-3 rounded-lg hover:bg-red-50 transition-colors border border-red-600"
             >
               Chat with Bot
             </a>
             <a
               href="/help"
-              className="bg-white text-indigo-600 px-6 py-3 rounded-lg hover:bg-indigo-50 transition-colors border border-indigo-600"
+              className="bg-white text-red-600 px-6 py-3 rounded-lg hover:bg-red-50 transition-colors border border-red-600"
             >
               Help Center
             </a>

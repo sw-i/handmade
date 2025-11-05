@@ -100,9 +100,9 @@ const AdminPaymentsPage = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600">Platform Fees</p>
-              <p className="text-3xl font-bold text-indigo-600">${stats.platformFees.toFixed(2)}</p>
+              <p className="text-3xl font-bold text-red-600">${stats.platformFees.toFixed(2)}</p>
             </div>
-            <DollarSign className="w-10 h-10 text-indigo-600" />
+            <DollarSign className="w-10 h-10 text-red-600" />
           </div>
         </Card>
         <Card className="p-6">
@@ -118,9 +118,9 @@ const AdminPaymentsPage = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600">Completed Today</p>
-              <p className="text-3xl font-bold text-blue-600">{stats.completedToday}</p>
+              <p className="text-3xl font-bold text-red-600">{stats.completedToday}</p>
             </div>
-            <CreditCard className="w-10 h-10 text-blue-600" />
+            <CreditCard className="w-10 h-10 text-red-600" />
           </div>
         </Card>
       </div>
@@ -145,7 +145,7 @@ const AdminPaymentsPage = () => {
                 onClick={() => setStatusFilter(status)}
                 className={`px-6 py-2.5 text-base font-semibold rounded-lg whitespace-nowrap transition ${
                   statusFilter === status
-                    ? 'bg-indigo-600 text-white'
+                    ? 'bg-red-600 text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
                 }`}
               >
@@ -195,7 +195,7 @@ const AdminPaymentsPage = () => {
                     <p className="text-xs text-gray-500">{payment.paymentMethod}</p>
                   </td>
                   <td className="px-6 py-4">
-                    <p className="text-lg font-bold text-indigo-600">${payment.platformFee.toFixed(2)}</p>
+                    <p className="text-lg font-bold text-red-600">${payment.platformFee.toFixed(2)}</p>
                     <p className="text-xs text-gray-500">10% fee</p>
                   </td>
                   <td className="px-6 py-4">

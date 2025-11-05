@@ -131,12 +131,12 @@ const ChatbotPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-purple-50 to-pink-50 py-8">
       <div className="max-w-4xl mx-auto px-4">
         {/* Header */}
         <div className="bg-white rounded-t-2xl shadow-xl border-b border-gray-200 p-6">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center">
+            <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-purple-600 rounded-full flex items-center justify-center">
               <Bot className="w-7 h-7 text-white" />
             </div>
             <div>
@@ -163,8 +163,8 @@ const ChatbotPage = () => {
                 {/* Avatar */}
                 <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
                   message.role === 'user'
-                    ? 'bg-indigo-600'
-                    : 'bg-gradient-to-br from-purple-500 to-indigo-600'
+                    ? 'bg-red-600'
+                    : 'bg-gradient-to-br from-purple-500 to-red-600'
                 }`}>
                   {message.role === 'user' ? (
                     <User className="w-5 h-5 text-white" />
@@ -179,7 +179,7 @@ const ChatbotPage = () => {
                 }`}>
                   <div className={`rounded-2xl px-4 py-3 ${
                     message.role === 'user'
-                      ? 'bg-indigo-600 text-white'
+                      ? 'bg-red-600 text-white'
                       : message.isError
                       ? 'bg-red-50 text-red-900 border border-red-200'
                       : 'bg-gray-100 text-gray-900'
@@ -192,7 +192,7 @@ const ChatbotPage = () => {
                     </p>
                     <p className={`text-xs mt-1 ${
                       message.role === 'user'
-                        ? 'text-indigo-200'
+                        ? 'text-red-200'
                         : message.isError
                         ? 'text-red-600'
                         : 'text-gray-500'
@@ -218,7 +218,7 @@ const ChatbotPage = () => {
               placeholder="Ask me anything about Handmade Hub..."
               disabled={isLoading}
               rows="1"
-              className="flex-1 resize-none rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 resize-none rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
               style={{ maxHeight: '120px' }}
               onInput={(e) => {
                 e.target.style.height = 'auto';
@@ -228,7 +228,7 @@ const ChatbotPage = () => {
             <button
               onClick={handleSendMessage}
               disabled={!inputMessage.trim() || isLoading}
-              className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white flex items-center justify-center transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-indigo-600 disabled:hover:to-purple-600 shadow-lg hover:shadow-xl"
+              className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-700 hover:to-purple-700 text-white flex items-center justify-center transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-red-600 disabled:hover:to-purple-600 shadow-lg hover:shadow-xl"
             >
               {isLoading ? (
                 <Loader className="w-5 h-5 animate-spin" />

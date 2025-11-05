@@ -4,15 +4,15 @@
 
 @layer base {
   * {
-    @apply border-gray-200;
+    @apply border-neutral-200;
   }
 
   body {
-    @apply bg-gray-50 text-gray-900 font-sans;
+    @apply bg-neutral-50 text-neutral-900 font-sans;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-semibold;
+    @apply font-display font-semibold text-neutral-900;
   }
 }
 
@@ -88,7 +88,7 @@
   }
 
   .badge-info {
-    @apply bg-blue-100 text-blue-800;
+    @apply bg-red-100 text-red-800;
   }
 }
 
@@ -114,20 +114,61 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100;
+  @apply bg-neutral-100;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-300 rounded-full;
+  @apply bg-primary-300 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-400;
+  @apply bg-primary-400;
 }
 
 /* Transitions */
 .page-transition {
   animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Custom Animations */
+@keyframes blob {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(20px, -50px) scale(1.1);
+  }
+  50% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  75% {
+    transform: translate(50px, 30px) scale(1.05);
+  }
+}
+
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-blob {
+  animation: blob 10s infinite ease-in-out;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s infinite ease-in-out;
 }
 
 /* Focus visible for accessibility */
@@ -161,11 +202,11 @@
 }
 
 .prose a, .html-content a {
-  @apply text-indigo-600 hover:text-indigo-800 underline;
+  @apply text-primary-600 hover:text-primary-700 underline;
 }
 
 .prose img, .html-content img {
-  @apply max-w-full h-auto rounded-lg my-4;
+  @apply max-w-full h-auto rounded-xl my-4;
 }
 
 .prose ul, .html-content ul {
@@ -181,15 +222,15 @@
 }
 
 .prose blockquote, .html-content blockquote {
-  @apply border-l-4 border-indigo-500 pl-4 italic text-gray-600 my-4;
+  @apply border-l-4 border-primary-500 pl-4 italic text-neutral-600 my-4;
 }
 
 .prose code, .html-content code {
-  @apply bg-gray-100 px-2 py-1 rounded text-sm font-mono;
+  @apply bg-neutral-100 px-2 py-1 rounded text-sm font-mono;
 }
 
 .prose pre, .html-content pre {
-  @apply bg-gray-100 p-4 rounded-lg overflow-x-auto my-4;
+  @apply bg-neutral-100 p-4 rounded-xl overflow-x-auto my-4;
 }
 
 .prose pre code, .html-content pre code {
@@ -197,7 +238,7 @@
 }
 
 .prose strong, .html-content strong {
-  @apply font-bold text-gray-900;
+  @apply font-bold text-neutral-900;
 }
 
 .prose em, .html-content em {

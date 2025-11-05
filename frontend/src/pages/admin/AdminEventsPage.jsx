@@ -232,7 +232,7 @@ const AdminEventsPage = () => {
   const getStatusBadgeColor = (status) => {
     const colors = {
       draft: 'bg-gray-100 text-gray-800',
-      published: 'bg-blue-100 text-blue-800',
+      published: 'bg-red-100 text-red-800',
       ongoing: 'bg-green-100 text-green-800',
       completed: 'bg-purple-100 text-purple-800',
       cancelled: 'bg-red-100 text-red-800'
@@ -250,7 +250,7 @@ const AdminEventsPage = () => {
         </div>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
         >
           <Plus size={20} />
           <span>Create Event</span>
@@ -267,7 +267,7 @@ const AdminEventsPage = () => {
               placeholder="Search events..."
               value={filters.search}
               onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent"
             />
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
           </div>
@@ -276,7 +276,7 @@ const AdminEventsPage = () => {
           <select
             value={filters.category}
             onChange={(e) => setFilters({ ...filters, category: e.target.value })}
-            className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent"
           >
             <option value="">All Categories</option>
             {categories.map(cat => (
@@ -288,7 +288,7 @@ const AdminEventsPage = () => {
           <select
             value={filters.eventType}
             onChange={(e) => setFilters({ ...filters, eventType: e.target.value })}
-            className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent"
           >
             <option value="">All Types</option>
             {eventTypes.map(type => (
@@ -300,7 +300,7 @@ const AdminEventsPage = () => {
           <select
             value={filters.status}
             onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-            className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent"
           >
             {statusOptions.map(option => (
               <option key={option.value} value={option.value}>{option.label}</option>
@@ -312,7 +312,7 @@ const AdminEventsPage = () => {
       {/* Events Grid */}
       {loading ? (
         <div className="flex justify-center items-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
         </div>
       ) : events.length === 0 ? (
         <div className="text-center py-20 bg-white rounded-lg">
@@ -321,7 +321,7 @@ const AdminEventsPage = () => {
           <p className="text-gray-600 mb-4">Create your first event to get started</p>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
           >
             Create Event
           </button>
@@ -390,7 +390,7 @@ const AdminEventsPage = () => {
                     </button>
                     <button
                       onClick={() => openEditModal(event)}
-                      className="flex-1 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                      className="flex-1 px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
                     >
                       <Edit size={16} />
                       <span>Edit</span>
@@ -665,7 +665,7 @@ const AdminEventsPage = () => {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                    className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
                   >
                     {showCreateModal ? 'Create Event' : 'Update Event'}
                   </button>
@@ -690,7 +690,7 @@ const AdminEventsPage = () => {
                   <div className="flex gap-2">
                     <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                       selectedEvent.status === 'published' ? 'bg-green-100 text-green-800' :
-                      selectedEvent.status === 'ongoing' ? 'bg-blue-100 text-blue-800' :
+                      selectedEvent.status === 'ongoing' ? 'bg-red-100 text-red-800' :
                       selectedEvent.status === 'completed' ? 'bg-gray-100 text-gray-800' :
                       selectedEvent.status === 'cancelled' ? 'bg-red-100 text-red-800' :
                       'bg-yellow-100 text-yellow-800'
@@ -788,7 +788,7 @@ const AdminEventsPage = () => {
                               className="w-12 h-12 rounded-full object-cover"
                             />
                           ) : (
-                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white font-bold">
+                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-red-600 flex items-center justify-center text-white font-bold">
                               {registration.vendor.businessName.charAt(0)}
                             </div>
                           )}
@@ -840,7 +840,7 @@ const AdminEventsPage = () => {
                             className="w-10 h-10 rounded-full object-cover"
                           />
                         ) : (
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm">
+                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-red-600 flex items-center justify-center text-white font-bold text-sm">
                             {vendor.businessName.charAt(0)}
                           </div>
                         )}

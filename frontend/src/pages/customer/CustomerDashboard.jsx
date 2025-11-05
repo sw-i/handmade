@@ -67,8 +67,8 @@ const CustomerDashboard = () => {
               <p className="text-sm text-gray-600 mb-1">Total Orders</p>
               <p className="text-3xl font-bold text-gray-900">{stats?.totalOrders || 0}</p>
             </div>
-            <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-              <ShoppingBag className="w-6 h-6 text-indigo-600" />
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+              <ShoppingBag className="w-6 h-6 text-red-600" />
             </div>
           </div>
         </Card>
@@ -89,10 +89,10 @@ const CustomerDashboard = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600 mb-1">Processing</p>
-              <p className="text-3xl font-bold text-blue-600">{stats?.processingOrders || 0}</p>
+              <p className="text-3xl font-bold text-red-600">{stats?.processingOrders || 0}</p>
             </div>
-            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-              <Package className="w-6 h-6 text-blue-600" />
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+              <Package className="w-6 h-6 text-red-600" />
             </div>
           </div>
         </Card>
@@ -113,7 +113,7 @@ const CustomerDashboard = () => {
       <Card className="p-6">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-gray-900">Recent Orders</h2>
-          <Link to="/customer/orders" className="text-indigo-600 hover:text-indigo-700 text-sm font-medium">
+          <Link to="/customer/orders" className="text-red-600 hover:text-red-700 text-sm font-medium">
             View All
           </Link>
         </div>
@@ -147,7 +147,7 @@ const CustomerDashboard = () => {
           <div className="text-center py-12 text-gray-600">
             <ShoppingBag className="w-16 h-16 text-gray-400 mx-auto mb-4" />
             <p>No orders yet</p>
-            <Link to="/products" className="text-indigo-600 hover:text-indigo-700 mt-2 inline-block">
+            <Link to="/products" className="text-red-600 hover:text-red-700 mt-2 inline-block">
               Start Shopping
             </Link>
           </div>

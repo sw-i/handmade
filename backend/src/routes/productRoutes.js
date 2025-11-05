@@ -8,7 +8,7 @@ const {
   deleteProduct,
   uploadProductImages
 } = require('../controllers/productController');
-const { protect, authorize } = require('../middleware/auth');
+const { protect, authorize, optionalAuth } = require('../middleware/auth');
 const { validate } = require('../middleware/validator');
 const upload = require('../middleware/upload');
 
@@ -23,8 +23,8 @@ const productValidation = [
   body('stockQuantity').optional().isInt({ min: 0 }).withMessage('Stock quantity must be 0 or greater')
 ];
 
-// Public routes
-router.get('/', getProducts);
+// Public routes (with optional auth for vendor filtering)
+router.get('/', optionalAuth, getProducts);
 router.get('/:id', getProduct);
 
 // Protected routes

@@ -7,7 +7,7 @@ const TermsOfServicePage = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <FileText className="w-16 h-16 text-indigo-600 mx-auto mb-4" />
+          <FileText className="w-16 h-16 text-red-600 mx-auto mb-4" />
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Terms of Service</h1>
           <p className="text-gray-600">Last updated: October 20, 2025</p>
         </div>
@@ -26,7 +26,7 @@ const TermsOfServicePage = () => {
           {/* Use of Platform */}
           <section>
             <div className="flex items-center gap-3 mb-4">
-              <CheckCircle className="w-6 h-6 text-indigo-600" />
+              <CheckCircle className="w-6 h-6 text-red-600" />
               <h2 className="text-2xl font-bold text-gray-900">Use of Platform</h2>
             </div>
             
@@ -212,7 +212,7 @@ const TermsOfServicePage = () => {
           {/* Dispute Resolution */}
           <section>
             <div className="flex items-center gap-3 mb-4">
-              <Scale className="w-6 h-6 text-indigo-600" />
+              <Scale className="w-6 h-6 text-red-600" />
               <h2 className="text-2xl font-bold text-gray-900">Dispute Resolution</h2>
             </div>
             
@@ -254,7 +254,7 @@ const TermsOfServicePage = () => {
           </section>
 
           {/* Contact */}
-          <section className="bg-indigo-50 rounded-lg p-6">
+          <section className="bg-red-50 rounded-lg p-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Contact Information</h2>
             <p className="text-gray-700 leading-relaxed mb-3">
               For questions about these Terms of Service, please contact us:

@@ -61,8 +61,8 @@ const VendorDashboard = () => {
               <p className="text-sm text-gray-600 mb-1">Total Products</p>
               <p className="text-3xl font-bold text-gray-900">{stats?.totalProducts || 0}</p>
             </div>
-            <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-              <Package className="w-6 h-6 text-indigo-600" />
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+              <Package className="w-6 h-6 text-red-600" />
             </div>
           </div>
         </Card>
@@ -73,8 +73,8 @@ const VendorDashboard = () => {
               <p className="text-sm text-gray-600 mb-1">Total Orders</p>
               <p className="text-3xl font-bold text-gray-900">{stats?.totalOrders || 0}</p>
             </div>
-            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-              <ShoppingCart className="w-6 h-6 text-blue-600" />
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+              <ShoppingCart className="w-6 h-6 text-red-600" />
             </div>
           </div>
         </Card>
@@ -92,11 +92,11 @@ const VendorDashboard = () => {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <Card className="p-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-gray-900">Recent Orders</h2>
-            <Link to="/vendor/orders" className="text-indigo-600 hover:text-indigo-700 text-sm font-medium">
+            <Link to="/vendor/orders" className="text-red-600 hover:text-red-700 text-sm font-medium">
               View All
             </Link>
           </div>
@@ -109,7 +109,7 @@ const VendorDashboard = () => {
                     <p className="font-semibold text-gray-900">Order #{order.id}</p>
                     <p className="text-sm text-gray-600">{order.status}</p>
                   </div>
-                  <p className="font-bold text-indigo-600">${Number(order.totalAmount).toFixed(2)}</p>
+                  <p className="font-bold text-red-600">${Number(order.totalAmount).toFixed(2)}</p>
                 </div>
               ))}
             </div>
@@ -122,15 +122,15 @@ const VendorDashboard = () => {
           <h2 className="text-xl font-bold text-gray-900 mb-6">Quick Actions</h2>
           <div className="space-y-3">
             <Link to="/vendor/products">
-              <button className="w-full p-3 bg-indigo-50 hover:bg-indigo-100 rounded-lg text-left transition">
-                <p className="font-semibold text-indigo-900 text-base">Manage Products</p>
-                <p className="text-sm text-indigo-600">Add, edit, or remove products</p>
+              <button className="w-full p-3 bg-red-50 hover:bg-red-100 rounded-lg text-left transition">
+                <p className="font-semibold text-red-900 text-base">Manage Products</p>
+                <p className="text-sm text-red-600">Add, edit, or remove products</p>
               </button>
             </Link>
             <Link to="/vendor/orders">
-              <button className="w-full p-3 bg-blue-50 hover:bg-blue-100 rounded-lg text-left transition">
-                <p className="font-semibold text-blue-900 text-base">View Orders</p>
-                <p className="text-sm text-blue-600">Manage customer orders</p>
+              <button className="w-full p-3 bg-red-50 hover:bg-red-100 rounded-lg text-left transition">
+                <p className="font-semibold text-red-900 text-base">View Orders</p>
+                <p className="text-sm text-red-600">Manage customer orders</p>
               </button>
             </Link>
             <Link to="/vendor/analytics">

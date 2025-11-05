@@ -101,7 +101,7 @@ const VendorOrdersPage = () => {
             }}
             className={`px-6 py-2.5 text-base font-semibold rounded-lg whitespace-nowrap transition ${
               statusFilter === tab.value
-                ? 'bg-indigo-600 text-white'
+                ? 'bg-red-600 text-white'
                 : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
             }`}
           >
@@ -119,7 +119,7 @@ const VendorOrdersPage = () => {
                   <div className="flex items-center gap-3">
                     {getStatusIcon(order.status)}
                     <div>
-                      <Link to={`/customer/orders/${order.id}`} className="text-lg font-bold text-gray-900 hover:text-indigo-600">
+                      <Link to={`/customer/orders/${order.id}`} className="text-lg font-bold text-gray-900 hover:text-red-600">
                         Order #{order.id}
                       </Link>
                       <p className="text-sm text-gray-600">
@@ -144,14 +144,14 @@ const VendorOrdersPage = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-600">Total Amount</p>
-                    <p className="font-semibold text-indigo-600">${order.totalAmount?.toFixed(2)}</p>
+                    <p className="font-semibold text-red-600">${order.totalAmount?.toFixed(2)}</p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-600">Update Status</p>
                     <select
                       value={order.status}
                       onChange={(e) => handleStatusUpdate(order.id, e.target.value)}
-                      className="mt-1 px-3 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"
+                      className="mt-1 px-3 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 text-sm"
                     >
                       <option value="pending">Pending</option>
                       <option value="processing">Processing</option>
@@ -173,7 +173,7 @@ const VendorOrdersPage = () => {
                       </div>
                     ))}
                     {order.items?.length > 3 && (
-                      <p className="text-sm text-indigo-600">+{order.items.length - 3} more items</p>
+                      <p className="text-sm text-red-600">+{order.items.length - 3} more items</p>
                     )}
                   </div>
                 </div>

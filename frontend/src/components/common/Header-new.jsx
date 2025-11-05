@@ -32,7 +32,7 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <div className="text-2xl font-bold text-indigo-600">Handmade Hub</div>
+            <div className="text-2xl font-bold text-red-600">Handmade Hub</div>
           </Link>
 
           {/* Search Bar - Desktop */}
@@ -43,9 +43,9 @@ const Header = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search products..."
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
               />
-              <button type="submit" className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-indigo-600">
+              <button type="submit" className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-red-600">
                 <Search size={20} />
               </button>
             </div>
@@ -53,11 +53,11 @@ const Header = () => {
 
           {/* Navigation - Desktop */}
           <nav className="hidden md:flex items-center space-x-6">
-            <Link to="/products" className="text-gray-700 hover:text-indigo-600 transition">Products</Link>
-            <Link to="/vendors" className="text-gray-700 hover:text-indigo-600 transition">Vendors</Link>
+            <Link to="/products" className="text-gray-700 hover:text-red-600 transition">Products</Link>
+            <Link to="/vendors" className="text-gray-700 hover:text-red-600 transition">Vendors</Link>
             
             {/* Cart */}
-            <Link to="/cart" className="relative text-gray-700 hover:text-indigo-600 transition">
+            <Link to="/cart" className="relative text-gray-700 hover:text-red-600 transition">
               <ShoppingCart size={24} />
               {cartItemCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -71,7 +71,7 @@ const Header = () => {
               <div className="flex items-center space-x-4">
                 <Link
                   to={user.role === 'admin' ? '/admin' : user.role === 'vendor' ? '/vendor' : '/customer'}
-                  className="flex items-center space-x-2 text-gray-700 hover:text-indigo-600 transition"
+                  className="flex items-center space-x-2 text-gray-700 hover:text-red-600 transition"
                 >
                   <User size={20} />
                   <span>{user.firstName}</span>
@@ -86,8 +86,8 @@ const Header = () => {
               </div>
             ) : (
               <div className="flex items-center space-x-4">
-                <Link to="/login" className="text-gray-700 hover:text-indigo-600 transition">Login</Link>
-                <Link to="/register" className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">Sign Up</Link>
+                <Link to="/login" className="text-gray-700 hover:text-red-600 transition">Login</Link>
+                <Link to="/register" className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">Sign Up</Link>
               </div>
             )}
           </nav>
@@ -95,7 +95,7 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden text-gray-700 hover:text-indigo-600"
+            className="md:hidden text-gray-700 hover:text-red-600"
           >
             <Menu size={24} />
           </button>
@@ -110,27 +110,27 @@ const Header = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search products..."
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
               />
             </form>
             <nav className="flex flex-col space-y-3">
-              <Link to="/products" className="text-gray-700 hover:text-indigo-600" onClick={() => setMobileMenuOpen(false)}>Products</Link>
-              <Link to="/vendors" className="text-gray-700 hover:text-indigo-600" onClick={() => setMobileMenuOpen(false)}>Vendors</Link>
-              <Link to="/cart" className="text-gray-700 hover:text-indigo-600 flex items-center" onClick={() => setMobileMenuOpen(false)}>
+              <Link to="/products" className="text-gray-700 hover:text-red-600" onClick={() => setMobileMenuOpen(false)}>Products</Link>
+              <Link to="/vendors" className="text-gray-700 hover:text-red-600" onClick={() => setMobileMenuOpen(false)}>Vendors</Link>
+              <Link to="/cart" className="text-gray-700 hover:text-red-600 flex items-center" onClick={() => setMobileMenuOpen(false)}>
                 <ShoppingCart size={20} className="mr-2" />
                 Cart {cartItemCount > 0 && `(${cartItemCount})`}
               </Link>
               {user ? (
                 <>
-                  <Link to={user.role === 'admin' ? '/admin' : user.role === 'vendor' ? '/vendor' : '/customer'} className="text-gray-700 hover:text-indigo-600" onClick={() => setMobileMenuOpen(false)}>
+                  <Link to={user.role === 'admin' ? '/admin' : user.role === 'vendor' ? '/vendor' : '/customer'} className="text-gray-700 hover:text-red-600" onClick={() => setMobileMenuOpen(false)}>
                     Dashboard
                   </Link>
                   <button onClick={handleLogout} className="text-left text-gray-700 hover:text-red-600">Logout</button>
                 </>
               ) : (
                 <>
-                  <Link to="/login" className="text-gray-700 hover:text-indigo-600" onClick={() => setMobileMenuOpen(false)}>Login</Link>
-                  <Link to="/register" className="text-gray-700 hover:text-indigo-600" onClick={() => setMobileMenuOpen(false)}>Sign Up</Link>
+                  <Link to="/login" className="text-gray-700 hover:text-red-600" onClick={() => setMobileMenuOpen(false)}>Login</Link>
+                  <Link to="/register" className="text-gray-700 hover:text-red-600" onClick={() => setMobileMenuOpen(false)}>Sign Up</Link>
                 </>
               )}
             </nav>

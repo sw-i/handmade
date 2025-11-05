@@ -19,9 +19,9 @@ const PendingApproval = () => {
           Thank you for registering as a vendor! Your account is currently under review by our admin team.
         </p>
         
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
-          <h2 className="text-xl font-semibold text-blue-900 mb-3">What happens next?</h2>
-          <ul className="text-left space-y-3 text-blue-800">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+          <h2 className="text-xl font-semibold text-red-900 mb-3">What happens next?</h2>
+          <ul className="text-left space-y-3 text-red-800">
             <li className="flex items-start">
               <span className="mr-2">✓</span>
               <span>Our team will review your vendor application</span>
@@ -40,7 +40,7 @@ const PendingApproval = () => {
         <div className="flex items-center justify-center gap-2 text-gray-600">
           <Mail className="w-5 h-5" />
           <p className="text-sm">
-            Questions? Contact us at <a href="mailto:support@handmadehub.com" className="text-indigo-600 hover:text-indigo-500 font-medium">support@handmadehub.com</a>
+            Questions? Contact us at <a href="mailto:support@handmadehub.com" className="text-red-600 hover:text-red-500 font-medium">support@handmadehub.com</a>
           </p>
         </div>
       </Card>

@@ -111,10 +111,10 @@ const VendorProfilePage = () => {
       <form onSubmit={handleSubmit}>
         {/* Profile Share Section */}
         {profile && (
-          <Card className="p-6 mb-6 bg-gradient-to-r from-indigo-50 to-purple-50 border-indigo-200">
+          <Card className="p-6 mb-6 bg-gradient-to-r from-red-50 to-purple-50 border-red-200">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Share2 className="w-6 h-6 text-indigo-600" />
+                <Share2 className="w-6 h-6 text-red-600" />
                 <div>
                   <h3 className="text-lg font-bold text-gray-900">Share Your Profile</h3>
                   <p className="text-sm text-gray-600">
@@ -142,7 +142,7 @@ const VendorProfilePage = () => {
         {/* Username & Basic Info */}
         <Card className="p-6 mb-6">
           <div className="flex items-center gap-3 mb-6">
-            <User className="w-6 h-6 text-indigo-600" />
+            <User className="w-6 h-6 text-red-600" />
             <h2 className="text-xl font-bold text-gray-900">Profile Identity</h2>
           </div>
 
@@ -156,7 +156,7 @@ const VendorProfilePage = () => {
                 type="text"
                 value={formData.username}
                 onChange={(e) => setFormData({ ...formData, username: e.target.value.toLowerCase().replace(/[^a-z0-9_-]/g, '') })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 placeholder="e.g., mystore123"
                 pattern="[a-zA-Z0-9_-]+"
                 minLength={3}
@@ -171,7 +171,7 @@ const VendorProfilePage = () => {
 
         <Card className="p-6 mb-6">
           <div className="flex items-center gap-3 mb-6">
-            <Store className="w-6 h-6 text-indigo-600" />
+            <Store className="w-6 h-6 text-red-600" />
             <h2 className="text-xl font-bold text-gray-900">Business Information</h2>
           </div>
 
@@ -201,7 +201,7 @@ const VendorProfilePage = () => {
                   type="text"
                   value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 />
               </div>
 
@@ -214,7 +214,7 @@ const VendorProfilePage = () => {
                   type="tel"
                   value={formData.businessPhone}
                   onChange={(e) => setFormData({ ...formData, businessPhone: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 />
               </div>
             </div>
@@ -229,7 +229,7 @@ const VendorProfilePage = () => {
                   type="email"
                   value={formData.businessEmail}
                   onChange={(e) => setFormData({ ...formData, businessEmail: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 />
               </div>
 
@@ -242,7 +242,7 @@ const VendorProfilePage = () => {
                   type="url"
                   value={formData.website}
                   onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   placeholder="https://yourwebsite.com"
                 />
               </div>
@@ -253,21 +253,21 @@ const VendorProfilePage = () => {
         {/* Social Media Links */}
         <Card className="p-6 mb-6">
           <div className="flex items-center gap-3 mb-6">
-            <Share2 className="w-6 h-6 text-indigo-600" />
+            <Share2 className="w-6 h-6 text-red-600" />
             <h2 className="text-xl font-bold text-gray-900">Social Media Links</h2>
           </div>
 
           <div className="space-y-4">
             <div>
               <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                <Facebook className="w-4 h-4 text-blue-600" />
+                <Facebook className="w-4 h-4 text-red-600" />
                 Facebook Page URL
               </label>
               <input
                 type="url"
                 value={formData.facebookUrl}
                 onChange={(e) => setFormData({ ...formData, facebookUrl: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 placeholder="https://facebook.com/yourpage"
               />
             </div>
@@ -281,35 +281,35 @@ const VendorProfilePage = () => {
                 type="url"
                 value={formData.instagramUrl}
                 onChange={(e) => setFormData({ ...formData, instagramUrl: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 placeholder="https://instagram.com/yourprofile"
               />
             </div>
 
             <div>
               <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                <Twitter className="w-4 h-4 text-blue-400" />
+                <Twitter className="w-4 h-4 text-red-400" />
                 Twitter/X Profile URL
               </label>
               <input
                 type="url"
                 value={formData.twitterUrl}
                 onChange={(e) => setFormData({ ...formData, twitterUrl: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 placeholder="https://twitter.com/yourhandle"
               />
             </div>
 
             <div>
               <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                <Linkedin className="w-4 h-4 text-blue-700" />
+                <Linkedin className="w-4 h-4 text-red-700" />
                 LinkedIn Company URL
               </label>
               <input
                 type="url"
                 value={formData.linkedinUrl}
                 onChange={(e) => setFormData({ ...formData, linkedinUrl: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 placeholder="https://linkedin.com/company/yourcompany"
               />
             </div>
@@ -318,7 +318,7 @@ const VendorProfilePage = () => {
 
         <Card className="p-6 mb-6">
           <div className="flex items-center gap-3 mb-6">
-            <CreditCard className="w-6 h-6 text-indigo-600" />
+            <CreditCard className="w-6 h-6 text-red-600" />
             <h2 className="text-xl font-bold text-gray-900">Banking & Tax Information</h2>
           </div>
 

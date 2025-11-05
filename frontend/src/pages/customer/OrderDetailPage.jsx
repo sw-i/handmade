@@ -58,7 +58,7 @@ const OrderDetailPage = () => {
     return (
       <div className="p-6 text-center">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Order not found</h2>
-        <Link to="/customer/orders" className="text-indigo-600 hover:text-indigo-700">Back to Orders</Link>
+        <Link to="/customer/orders" className="text-red-600 hover:text-red-700">Back to Orders</Link>
       </div>
     );
   }
@@ -67,7 +67,7 @@ const OrderDetailPage = () => {
 
   return (
     <div className="p-6">
-      <Link to="/customer/orders" className="inline-flex items-center text-indigo-600 hover:text-indigo-700 mb-6">
+      <Link to="/customer/orders" className="inline-flex items-center text-red-600 hover:text-red-700 mb-6">
         <ArrowLeft className="w-4 h-4 mr-2" />
         Back to Orders
       </Link>
@@ -94,7 +94,7 @@ const OrderDetailPage = () => {
                 <div className="flex flex-col items-center flex-1">
                   <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
                     index <= currentStatusIndex
-                      ? 'bg-indigo-600 text-white'
+                      ? 'bg-red-600 text-white'
                       : 'bg-gray-200 text-gray-400'
                   }`}>
                     <step.icon className="w-6 h-6" />
@@ -107,7 +107,7 @@ const OrderDetailPage = () => {
                 </div>
                 {index < statusSteps.length - 1 && (
                   <div className={`flex-1 h-1 mx-4 ${
-                    index < currentStatusIndex ? 'bg-indigo-600' : 'bg-gray-200'
+                    index < currentStatusIndex ? 'bg-red-600' : 'bg-gray-200'
                   }`} />
                 )}
               </div>
@@ -135,7 +135,7 @@ const OrderDetailPage = () => {
                     <p className="text-sm text-gray-600">${Number(item.price).toFixed(2)} each</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-lg font-bold text-indigo-600">${(Number(item.price) * item.quantity).toFixed(2)}</p>
+                    <p className="text-lg font-bold text-red-600">${(Number(item.price) * item.quantity).toFixed(2)}</p>
                   </div>
                 </div>
               ))}
@@ -162,7 +162,7 @@ const OrderDetailPage = () => {
               </div>
               <div className="flex justify-between text-lg font-bold text-gray-900 pt-3 border-t border-gray-200">
                 <span>Total</span>
-                <span className="text-indigo-600">${Number(order.totalAmount).toFixed(2)}</span>
+                <span className="text-red-600">${Number(order.totalAmount).toFixed(2)}</span>
               </div>
             </div>
           </Card>
@@ -170,7 +170,7 @@ const OrderDetailPage = () => {
           {order.shippingAddress && (
             <Card className="p-6">
               <div className="flex items-center gap-2 mb-4">
-                <MapPin className="w-5 h-5 text-indigo-600" />
+                <MapPin className="w-5 h-5 text-red-600" />
                 <h2 className="text-lg font-bold text-gray-900">Shipping Address</h2>
               </div>
               <p className="text-gray-700">{order.shippingAddress.street}</p>
@@ -183,7 +183,7 @@ const OrderDetailPage = () => {
 
           <Card className="p-6">
             <div className="flex items-center gap-2 mb-4">
-              <CreditCard className="w-5 h-5 text-indigo-600" />
+              <CreditCard className="w-5 h-5 text-red-600" />
               <h2 className="text-lg font-bold text-gray-900">Payment Method</h2>
             </div>
             <p className="text-gray-700 capitalize">{order.paymentMethod || 'Card'}</p>

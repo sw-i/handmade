@@ -44,7 +44,7 @@ const VendorsPage = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search vendors..."
-            className="w-full pl-10 pr-4 py-3 border border-gray-300 bg-white text-gray-900 placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full pl-10 pr-4 py-3 border border-gray-300 bg-white text-gray-900 placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
           />
         </div>
 
@@ -58,8 +58,8 @@ const VendorsPage = () => {
               <Link key={vendor.id} to={`/vendors/${vendor.username || vendor.id}`}>
                 <Card hover className="p-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Store className="w-8 h-8 text-indigo-600" />
+                    <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Store className="w-8 h-8 text-red-600" />
                     </div>
                     <div className="flex-1">
                       <h3 className="text-lg font-semibold text-gray-900 mb-1">
@@ -80,7 +80,7 @@ const VendorsPage = () => {
                       <p className="text-sm text-gray-600 line-clamp-2">
                         {vendor.businessDescription || 'Handcrafted products with love'}
                       </p>
-                      <div className="mt-3 text-sm font-medium text-indigo-600">
+                      <div className="mt-3 text-sm font-medium text-red-600">
                         {vendor.totalProducts || 0} Products
                       </div>
                     </div>

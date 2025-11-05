@@ -44,7 +44,7 @@ const Sidebar = ({ role }) => {
   return (
     <aside className="fixed left-0 top-[73px] w-64 h-[calc(100vh-73px)] bg-white border-r border-gray-200 p-4 transition-colors overflow-y-auto z-40">
       <div className="mb-8">
-        <h2 className="text-xl font-bold text-indigo-600 px-4">
+        <h2 className="text-xl font-bold text-red-600 px-4">
           {role === 'customer' ? 'Customer Portal' : role === 'vendor' ? 'Vendor Portal' : 'Admin Portal'}
         </h2>
       </div>
@@ -58,7 +58,7 @@ const Sidebar = ({ role }) => {
             className={({ isActive }) =>
               `flex items-center gap-3 px-4 py-3 rounded-lg transition ${
                 isActive
-                  ? 'bg-indigo-50 text-indigo-600 font-semibold'
+                  ? 'bg-red-50 text-red-600 font-semibold'
                   : 'text-gray-700 hover:bg-gray-50'
               }`
             }

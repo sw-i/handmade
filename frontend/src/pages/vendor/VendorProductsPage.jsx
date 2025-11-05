@@ -41,10 +41,13 @@ const VendorProductsPage = () => {
   const loadProducts = async () => {
     try {
       setLoading(true);
+      console.log('Fetching products for vendor...');
       const response = await productService.getProducts({ vendor: 'me' });
+      console.log('Products response:', response);
       setProducts(response.data || []);
     } catch (error) {
       console.error('Failed to load products:', error);
+      console.error('Error details:', error.response?.data);
     } finally {
       setLoading(false);
     }
@@ -417,7 +420,7 @@ const VendorProductsPage = () => {
             <select
               value={formData.category}
               onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
               required
             >
               <option>Electronics</option>
@@ -440,7 +443,7 @@ const VendorProductsPage = () => {
               multiple
               accept="image/*"
               onChange={handleImageChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100 cursor-pointer"
             />
             <p className="text-xs text-gray-500 mt-1">Upload up to 5 images</p>
             
@@ -480,7 +483,7 @@ const VendorProductsPage = () => {
                       <X className="w-3 h-3" />
                     </button>
                     {typeof img === 'object' && img.isExisting && (
-                      <span className="absolute bottom-1 left-1 bg-blue-500 text-white text-xs px-2 py-0.5 rounded">Existing</span>
+                      <span className="absolute bottom-1 left-1 bg-red-500 text-white text-xs px-2 py-0.5 rounded">Existing</span>
                     )}
                   </div>
                 ))}

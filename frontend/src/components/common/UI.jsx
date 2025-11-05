@@ -87,11 +87,11 @@ export const Button = ({
   const baseClasses = 'font-medium rounded-lg transition focus:outline-none focus:ring-2 focus:ring-offset-2';
   
   const variantClasses = {
-    primary: 'bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500',
+    primary: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
     secondary: 'bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-500',
     danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
     success: 'bg-green-600 text-white hover:bg-green-700 focus:ring-green-500',
-    outline: 'border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 focus:ring-indigo-500',
+    outline: 'border-2 border-red-600 text-red-600 hover:bg-red-50 focus:ring-red-500',
   };
 
   const sizeClasses = {
@@ -144,7 +144,7 @@ export const Input = ({
       )}
       <input
         type={type}
-        className={`w-full px-4 py-2 border ${error ? 'border-red-500' : 'border-gray-300'} bg-white text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${className}`}
+        className={`w-full px-4 py-2 border ${error ? 'border-red-500' : 'border-gray-300'} bg-white text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ${className}`}
         {...props}
       />
       {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
@@ -170,7 +170,7 @@ export const Textarea = ({
       )}
       <textarea
         rows={rows}
-        className={`w-full px-4 py-2 border ${error ? 'border-red-500' : 'border-gray-300'} bg-white text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${className}`}
+        className={`w-full px-4 py-2 border ${error ? 'border-red-500' : 'border-gray-300'} bg-white text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ${className}`}
         {...props}
       />
       {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
@@ -195,7 +195,7 @@ export const Select = ({
         </label>
       )}
       <select
-        className={`w-full px-4 py-2 border ${error ? 'border-red-500' : 'border-gray-300'} bg-white text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${className}`}
+        className={`w-full px-4 py-2 border ${error ? 'border-red-500' : 'border-gray-300'} bg-white text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ${className}`}
         {...props}
       >
         {options.map((option) => (
@@ -263,7 +263,7 @@ export const Badge = ({ children, variant = 'default', className = '' }) => {
     success: 'bg-green-100 text-green-800',
     warning: 'bg-yellow-100 text-yellow-800',
     danger: 'bg-red-100 text-red-800',
-    info: 'bg-blue-100 text-blue-800',
+    info: 'bg-red-100 text-red-800',
   };
 
   return (
@@ -310,7 +310,7 @@ export const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         <button
           key={page}
           onClick={() => onPageChange(page)}
-          className={`px-3 py-1 border rounded ${currentPage === page ? 'bg-indigo-600 text-white border-indigo-600' : 'border-gray-300 hover:bg-gray-50 bg-white text-gray-700'}`}
+          className={`px-3 py-1 border rounded ${currentPage === page ? 'bg-red-600 text-white border-red-600' : 'border-gray-300 hover:bg-gray-50 bg-white text-gray-700'}`}
         >
           {page}
         </button>

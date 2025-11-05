@@ -141,7 +141,7 @@ const ProductDetailPage = () => {
     <div className="bg-gradient-to-br from-gray-50 via-white to-gray-50 min-h-screen py-6 sm:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
-        <Link to="/products" className="inline-flex items-center text-indigo-600 hover:text-indigo-700 mb-8 font-medium transition-colors group">
+        <Link to="/products" className="inline-flex items-center text-red-600 hover:text-red-700 mb-8 font-medium transition-colors group">
           <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
           Back to Handmade Collection
         </Link>
@@ -181,8 +181,8 @@ const ProductDetailPage = () => {
                       onClick={() => setSelectedImage(index)}
                       className={`flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border-3 transition-all duration-200 hover:scale-105 ${
                         selectedImage === index 
-                          ? 'border-indigo-600 ring-2 ring-indigo-200 shadow-md' 
-                          : 'border-gray-200 hover:border-indigo-300'
+                          ? 'border-red-600 ring-2 ring-indigo-200 shadow-md' 
+                          : 'border-gray-200 hover:border-red-300'
                       }`}
                     >
                       <img 
@@ -231,7 +231,7 @@ const ProductDetailPage = () => {
 
                 {/* Price & Stock */}
                 <div className="flex items-baseline gap-4 flex-wrap">
-                  <span className="text-5xl font-bold text-indigo-600">${Number(product.price).toFixed(2)}</span>
+                  <span className="text-5xl font-bold text-red-600">${Number(product.price).toFixed(2)}</span>
                   {product.compareAtPrice && product.compareAtPrice > product.price && (
                     <span className="text-2xl text-gray-400 line-through">${Number(product.compareAtPrice).toFixed(2)}</span>
                   )}
@@ -274,7 +274,7 @@ const ProductDetailPage = () => {
                     )}
                     <div className="flex flex-col">
                       <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Category</span>
-                      <span className="inline-flex items-center px-3 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-medium border border-indigo-100">
+                      <span className="inline-flex items-center px-3 py-2 bg-red-50 text-red-700 rounded-lg text-sm font-medium border border-red-100">
                         {product.category}
                       </span>
                     </div>
@@ -289,11 +289,11 @@ const ProductDetailPage = () => {
 
               {/* Artisan Info */}
               {product.vendor && (
-                <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100">
+                <div className="bg-gradient-to-br from-red-50 to-purple-50 rounded-2xl p-6 border border-red-100">
                   <h3 className="text-sm font-bold text-gray-900 mb-3 uppercase tracking-wide">Handcrafted By</h3>
                   <Link to={`/vendors/${product.vendor.username || product.vendor.id}`} className="inline-flex items-center group">
                     <div className="flex-1">
-                      <p className="text-lg font-bold text-indigo-600 group-hover:text-indigo-700 transition-colors">
+                      <p className="text-lg font-bold text-red-600 group-hover:text-red-700 transition-colors">
                         {product.vendor.businessName || `${product.vendor.firstName} ${product.vendor.lastName}`}
                       </p>
                       <p className="text-sm text-gray-600 mt-1">View artisan profile →</p>
@@ -329,7 +329,7 @@ const ProductDetailPage = () => {
                 <div className="flex gap-3">
                   <Button
                     variant="primary"
-                    className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2.5 text-base rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 inline-flex items-center justify-center"
+                    className="flex-1 bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2.5 text-base rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 inline-flex items-center justify-center"
                     onClick={handleAddToCart}
                     disabled={product.stock === 0}
                   >
@@ -402,7 +402,7 @@ const ProductDetailPage = () => {
                       type="submit" 
                       variant="primary" 
                       loading={submittingReview} 
-                      className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2.5 text-base rounded-lg shadow-md hover:shadow-lg transition-all"
+                      className="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2.5 text-base rounded-lg shadow-md hover:shadow-lg transition-all"
                     >
                       {submittingReview ? 'Submitting...' : 'Submit Review'}
                     </Button>
@@ -448,12 +448,12 @@ const ProductDetailPage = () => {
                       
                       {/* Vendor Response */}
                       {review.vendorResponse && (
-                        <div className="mt-6 bg-gradient-to-br from-indigo-50 to-purple-50 border-l-4 border-indigo-400 rounded-xl p-5">
+                        <div className="mt-6 bg-gradient-to-br from-red-50 to-purple-50 border-l-4 border-red-400 rounded-xl p-5">
                           <div className="flex items-center gap-2 mb-2">
-                            <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center">
+                            <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center">
                               <span className="text-white text-xs font-bold">✓</span>
                             </div>
-                            <p className="text-sm font-bold text-indigo-900">Artisan Response</p>
+                            <p className="text-sm font-bold text-red-900">Artisan Response</p>
                           </div>
                           <p className="text-sm text-gray-700 leading-relaxed pl-10">{review.vendorResponse}</p>
                         </div>

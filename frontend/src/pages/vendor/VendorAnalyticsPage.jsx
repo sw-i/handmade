@@ -54,10 +54,10 @@ const VendorAnalyticsPage = () => {
             <div>
               <p className="text-sm text-gray-600 mb-1">Total Sales</p>
               <p className="text-3xl font-bold text-gray-900">{analytics?.totalOrders || 0}</p>
-              <p className="text-sm text-blue-600 mt-1">+8% from last month</p>
+              <p className="text-sm text-red-600 mt-1">+8% from last month</p>
             </div>
-            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-              <ShoppingCart className="w-6 h-6 text-blue-600" />
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+              <ShoppingCart className="w-6 h-6 text-red-600" />
             </div>
           </div>
         </Card>
@@ -67,10 +67,10 @@ const VendorAnalyticsPage = () => {
             <div>
               <p className="text-sm text-gray-600 mb-1">Products Listed</p>
               <p className="text-3xl font-bold text-gray-900">{analytics?.totalProducts || 0}</p>
-              <p className="text-sm text-indigo-600 mt-1">Active listings</p>
+              <p className="text-sm text-red-600 mt-1">Active listings</p>
             </div>
-            <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-              <Package className="w-6 h-6 text-indigo-600" />
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+              <Package className="w-6 h-6 text-red-600" />
             </div>
           </div>
         </Card>
@@ -106,7 +106,7 @@ const VendorAnalyticsPage = () => {
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div 
-                      className="bg-indigo-600 h-2 rounded-full transition-all"
+                      className="bg-red-600 h-2 rounded-full transition-all"
                       style={{ width: `${percentage}%` }}
                     />
                   </div>
@@ -122,7 +122,7 @@ const VendorAnalyticsPage = () => {
             {analytics?.topProducts?.slice(0, 5).map((product, idx) => (
               <div key={product.id} className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center font-bold text-indigo-600">
+                  <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center font-bold text-red-600">
                     #{idx + 1}
                   </div>
                   <div>
@@ -130,7 +130,7 @@ const VendorAnalyticsPage = () => {
                     <p className="text-sm text-gray-600">{product.sales || 0} sales</p>
                   </div>
                 </div>
-                <p className="font-bold text-indigo-600">${Number(product.revenue || 0).toFixed(2)}</p>
+                <p className="font-bold text-red-600">${Number(product.revenue || 0).toFixed(2)}</p>
               </div>
             )) || (
               <p className="text-gray-600 text-center py-8">No sales data yet</p>

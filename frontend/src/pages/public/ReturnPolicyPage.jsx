@@ -7,7 +7,7 @@ const ReturnPolicyPage = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <RotateCcw className="w-16 h-16 text-indigo-600 mx-auto mb-4" />
+          <RotateCcw className="w-16 h-16 text-red-600 mx-auto mb-4" />
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Return & Refund Policy</h1>
           <p className="text-gray-600">Last updated: October 20, 2025</p>
         </div>
@@ -42,7 +42,7 @@ const ReturnPolicyPage = () => {
           {/* General Return Policy */}
           <section>
             <div className="flex items-center gap-3 mb-4">
-              <Package className="w-6 h-6 text-indigo-600" />
+              <Package className="w-6 h-6 text-red-600" />
               <h2 className="text-2xl font-bold text-gray-900">General Return Guidelines</h2>
             </div>
             
@@ -108,13 +108,13 @@ const ReturnPolicyPage = () => {
           {/* Return Process */}
           <section>
             <div className="flex items-center gap-3 mb-4">
-              <Clock className="w-6 h-6 text-indigo-600" />
+              <Clock className="w-6 h-6 text-red-600" />
               <h2 className="text-2xl font-bold text-gray-900">How to Return an Item</h2>
             </div>
             
             <div className="space-y-4">
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
+                <div className="flex-shrink-0 w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center font-bold">
                   1
                 </div>
                 <div>
@@ -127,7 +127,7 @@ const ReturnPolicyPage = () => {
               </div>
 
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
+                <div className="flex-shrink-0 w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center font-bold">
                   2
                 </div>
                 <div>
@@ -140,7 +140,7 @@ const ReturnPolicyPage = () => {
               </div>
 
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
+                <div className="flex-shrink-0 w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center font-bold">
                   3
                 </div>
                 <div>
@@ -153,7 +153,7 @@ const ReturnPolicyPage = () => {
               </div>
 
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
+                <div className="flex-shrink-0 w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center font-bold">
                   4
                 </div>
                 <div>
@@ -253,7 +253,7 @@ const ReturnPolicyPage = () => {
           </section>
 
           {/* Contact */}
-          <section className="bg-indigo-50 rounded-lg p-6">
+          <section className="bg-red-50 rounded-lg p-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Need Help with a Return?</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
               Our support team is here to assist with any return or refund questions.
@@ -266,13 +266,13 @@ const ReturnPolicyPage = () => {
             <div className="flex flex-wrap gap-3">
               <a
                 href="/contact"
-                className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
+                className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors"
               >
                 Contact Support
               </a>
               <a
                 href="/help"
-                className="bg-white text-indigo-600 px-6 py-2 rounded-lg hover:bg-indigo-50 transition-colors border border-indigo-600"
+                className="bg-white text-red-600 px-6 py-2 rounded-lg hover:bg-red-50 transition-colors border border-red-600"
               >
                 Help Center
               </a>

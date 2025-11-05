@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import eventService from '@services/eventService';
+import { useAuthStore } from '@store/authStore';
 import { 
   Calendar, MapPin, Users, Clock, Filter, Search, 
   ExternalLink, Star, X, Tag, ChevronLeft, ChevronRight
@@ -9,10 +10,9 @@ import toast from 'react-hot-toast';
 
 const EventsPage = () => {
   const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuthStore();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userRole, setUserRole] = useState(null);
   const [filters, setFilters] = useState({
     search: '',
     category: '',
@@ -46,14 +46,6 @@ const EventsPage = () => {
     { value: 'virtual', label: 'Virtual' },
     { value: 'hybrid', label: 'Hybrid' }
   ];
-
-  // Check authentication status
-  useEffect(() => {
-    const token = localStorage.getItem('accessToken');
-    const user = JSON.parse(localStorage.getItem('user') || 'null');
-    setIsAuthenticated(!!token);
-    setUserRole(user?.role || null);
-  }, []);
 
   // Fetch events
   useEffect(() => {
@@ -102,7 +94,7 @@ const EventsPage = () => {
       return;
     }
 
-    if (userRole !== 'vendor') {
+    if (user?.role !== 'vendor') {
       toast.error('Only vendors can register for events');
       return;
     }
@@ -114,7 +106,8 @@ const EventsPage = () => {
       // Refresh events to update registration status
       fetchEvents();
     } catch (error) {
-      toast.error(error.message || 'Failed to register');
+      console.error('Registration error:', error);
+      toast.error(error.response?.data?.message || error.message || 'Failed to register');
     }
   };
 
@@ -139,10 +132,10 @@ const EventsPage = () => {
   const getCategoryColor = (category) => {
     const colors = {
       craft_fair: 'bg-pink-100 text-pink-800',
-      workshop: 'bg-blue-100 text-blue-800',
+      workshop: 'bg-red-100 text-red-800',
       exhibition: 'bg-purple-100 text-purple-800',
       marketplace: 'bg-green-100 text-green-800',
-      conference: 'bg-indigo-100 text-indigo-800',
+      conference: 'bg-red-100 text-red-800',
       networking: 'bg-yellow-100 text-yellow-800',
       other: 'bg-gray-100 text-gray-800'
     };
@@ -161,11 +154,11 @@ const EventsPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 transition-colors">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16">
+      <div className="bg-gradient-to-r from-red-600 to-purple-600 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Discover Artisan Events</h1>
-            <p className="text-xl text-indigo-100 mb-8">
+            <p className="text-xl text-red-100 mb-8">
               Connect with local artisans, attend workshops, and explore craft fairs
             </p>
             
@@ -177,7 +170,7 @@ const EventsPage = () => {
                   placeholder="Search events by name, location, or description..."
                   value={filters.search}
                   onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-                  className="w-full px-6 py-4 pr-12 rounded-lg text-gray-900 bg-white border-2 border-transparent focus:border-indigo-300 focus:outline-none shadow-lg"
+                  className="w-full px-6 py-4 pr-12 rounded-lg text-gray-900 bg-white border-2 border-transparent focus:border-red-300 focus:outline-none shadow-lg"
                 />
                 <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={24} />
               </div>
@@ -206,7 +199,7 @@ const EventsPage = () => {
                 <h3 className="text-lg font-semibold text-gray-900">Filters</h3>
                 <button
                   onClick={() => setFilters({ search: '', category: '', eventType: '', status: 'published' })}
-                  className="text-sm text-indigo-600 hover:underline"
+                  className="text-sm text-red-600 hover:underline"
                 >
                   Clear All
                 </button>
@@ -220,7 +213,7 @@ const EventsPage = () => {
                 <select
                   value={filters.category}
                   onChange={(e) => setFilters({ ...filters, category: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 >
                   {categories.map(cat => (
                     <option key={cat.value} value={cat.value}>{cat.label}</option>
@@ -236,7 +229,7 @@ const EventsPage = () => {
                 <select
                   value={filters.eventType}
                   onChange={(e) => setFilters({ ...filters, eventType: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 >
                   {eventTypes.map(type => (
                     <option key={type.value} value={type.value}>{type.label}</option>
@@ -245,8 +238,8 @@ const EventsPage = () => {
               </div>
 
               {/* Info */}
-              <div className="mt-6 p-4 bg-indigo-50 rounded-lg">
-                <p className="text-sm text-indigo-700">
+              <div className="mt-6 p-4 bg-red-50 rounded-lg">
+                <p className="text-sm text-red-700">
                   <Calendar size={16} className="inline mr-1" />
                   Found {pagination.total} events
                 </p>
@@ -258,7 +251,7 @@ const EventsPage = () => {
           <main className="flex-1">
             {loading ? (
               <div className="flex justify-center items-center py-20">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
               </div>
             ) : events.length === 0 ? (
               <div className="text-center py-20">
@@ -269,7 +262,7 @@ const EventsPage = () => {
                 </p>
                 <button
                   onClick={() => setFilters({ search: '', category: '', eventType: '', status: 'published' })}
-                  className="text-indigo-600 hover:underline"
+                  className="text-red-600 hover:underline"
                 >
                   Clear all filters
                 </button>
@@ -302,7 +295,7 @@ const EventsPage = () => {
                             </span>
                           )}
                           {isEventUpcoming(event.startDate) && (
-                            <span className="absolute top-2 right-2 px-3 py-1 bg-blue-500 text-white text-xs font-semibold rounded-full">
+                            <span className="absolute top-2 right-2 px-3 py-1 bg-red-500 text-white text-xs font-semibold rounded-full">
                               Upcoming
                             </span>
                           )}
@@ -316,7 +309,7 @@ const EventsPage = () => {
                         </span>
 
                         {/* Event Title */}
-                        <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-indigo-600 transition-colors">
+                        <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-red-600 transition-colors">
                           {event.name}
                         </h3>
 
@@ -328,7 +321,7 @@ const EventsPage = () => {
                         {/* Event Details */}
                         <div className="space-y-2 text-sm text-gray-600">
                           <div className="flex items-center gap-2">
-                            <Calendar size={16} className="text-indigo-600" />
+                            <Calendar size={16} className="text-red-600" />
                             <span>{formatDate(event.startDate)}</span>
                           </div>
                           
@@ -343,7 +336,7 @@ const EventsPage = () => {
 
                           {event.maxCapacity && (
                             <div className="flex items-center gap-2">
-                              <Users size={16} className="text-indigo-600" />
+                              <Users size={16} className="text-red-600" />
                               <span>
                                 {event.currentParticipants || 0}/{event.maxCapacity} attendees
                               </span>
@@ -443,7 +436,7 @@ const EventsPage = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div className="flex items-center gap-3">
-                  <Calendar className="text-indigo-600" size={20} />
+                  <Calendar className="text-red-600" size={20} />
                   <div>
                     <p className="text-sm text-gray-600">Event Dates</p>
                     <p className="font-medium text-gray-900">
@@ -468,7 +461,7 @@ const EventsPage = () => {
 
                 {selectedEvent.maxCapacity && (
                   <div className="flex items-center gap-3">
-                    <Users className="text-indigo-600" size={20} />
+                    <Users className="text-red-600" size={20} />
                     <div>
                       <p className="text-sm text-gray-600">Capacity</p>
                       <p className="font-medium text-gray-900">
@@ -480,7 +473,7 @@ const EventsPage = () => {
 
                 {selectedEvent.registrationDeadline && (
                   <div className="flex items-center gap-3">
-                    <Clock className="text-indigo-600" size={20} />
+                    <Clock className="text-red-600" size={20} />
                     <div>
                       <p className="text-sm text-gray-600">Registration Deadline</p>
                       <p className="font-medium text-gray-900">
@@ -520,7 +513,7 @@ const EventsPage = () => {
               )}
 
               {selectedEvent.organizer && (
-                <div className="mb-6 p-4 bg-indigo-50 rounded-lg">
+                <div className="mb-6 p-4 bg-red-50 rounded-lg">
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     Organized By
                   </h3>
@@ -535,7 +528,7 @@ const EventsPage = () => {
                     <div>
                       <Link
                         to={`/vendors/${selectedEvent.organizer.username || selectedEvent.organizer.id}`}
-                        className="font-medium text-indigo-600 hover:underline"
+                        className="font-medium text-red-600 hover:underline"
                         onClick={() => setShowDetailModal(false)}
                       >
                         {selectedEvent.organizer.businessName}
@@ -578,7 +571,7 @@ const EventsPage = () => {
                           />
                         ) : null}
                         <div 
-                          className={`w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white font-bold ${vendor.logoUrl ? 'hidden' : ''}`}
+                          className={`w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-red-600 flex items-center justify-center text-white font-bold ${vendor.logoUrl ? 'hidden' : ''}`}
                         >
                           {vendor.businessName.charAt(0).toUpperCase()}
                         </div>
@@ -610,12 +603,12 @@ const EventsPage = () => {
                 {!isAuthenticated ? (
                   <Link
                     to="/login"
-                    className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-center"
+                    className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-center"
                     onClick={() => setShowDetailModal(false)}
                   >
                     Login to Register
                   </Link>
-                ) : userRole !== 'vendor' ? (
+                ) : user?.role !== 'vendor' ? (
                   <button
                     disabled
                     className="flex-1 px-4 py-2 bg-gray-400 text-white rounded-lg cursor-not-allowed"
@@ -646,7 +639,7 @@ const EventsPage = () => {
                 ) : (
                   <button
                     onClick={() => handleRegister(selectedEvent.id)}
-                    className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                    className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
                   >
                     Register Now
                   </button>

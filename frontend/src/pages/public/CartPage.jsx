@@ -32,7 +32,7 @@ const CartPage = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
-          <Link to="/products" className="inline-flex items-center text-indigo-600 hover:text-indigo-700 mb-4">
+          <Link to="/products" className="inline-flex items-center text-red-600 hover:text-red-700 mb-4">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Continue Shopping
           </Link>
@@ -59,7 +59,7 @@ const CartPage = () => {
                   <div className="flex-1">
                     <h3 className="text-lg font-semibold text-gray-900">{item.name}</h3>
                     <p className="text-gray-600 text-sm mt-1">{item.category}</p>
-                    <p className="text-indigo-600 font-semibold mt-2">${Number(item.price).toFixed(2)}</p>
+                    <p className="text-red-600 font-semibold mt-2">${Number(item.price).toFixed(2)}</p>
                   </div>
 
                   <div className="flex items-center gap-3">
@@ -122,7 +122,7 @@ const CartPage = () => {
                 </div>
                 <div className="border-t border-gray-200 pt-4 flex justify-between text-lg font-bold text-gray-900">
                   <span>Total</span>
-                  <span className="text-indigo-600">${total.toFixed(2)}</span>
+                  <span className="text-red-600">${total.toFixed(2)}</span>
                 </div>
               </div>
 

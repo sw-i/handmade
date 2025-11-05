@@ -59,7 +59,7 @@ const OrdersPage = () => {
               }}
               className={`px-4 py-2 rounded-lg font-medium transition ${
                 statusFilter === status
-                  ? 'bg-indigo-600 text-white'
+                  ? 'bg-red-600 text-white'
                   : 'bg-white text-gray-700 hover:bg-gray-100'
               }`}
             >
@@ -91,7 +91,7 @@ const OrdersPage = () => {
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-2xl font-bold text-indigo-600">${Number(order.totalAmount).toFixed(2)}</p>
+                    <p className="text-2xl font-bold text-red-600">${Number(order.totalAmount).toFixed(2)}</p>
                     <p className="text-sm text-gray-600">{order.items?.length || 0} items</p>
                   </div>
                 </div>
@@ -121,7 +121,7 @@ const OrdersPage = () => {
                     )}
                   </div>
                   <Link to={`/customer/orders/${order.id}`}>
-                    <button className="inline-flex items-center px-6 py-2.5 text-base font-semibold bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+                    <button className="inline-flex items-center px-6 py-2.5 text-base font-semibold bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
                       <Eye className="w-4 h-4 mr-2" />
                       View Details
                     </button>
@@ -143,7 +143,7 @@ const OrdersPage = () => {
           <h3 className="text-xl font-semibold text-gray-900 mb-2">No orders found</h3>
           <p className="text-gray-600 mb-6">You haven't placed any orders yet</p>
           <Link to="/products">
-            <button className="px-6 py-2.5 text-base font-semibold bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+            <button className="px-6 py-2.5 text-base font-semibold bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
               Start Shopping
             </button>
           </Link>

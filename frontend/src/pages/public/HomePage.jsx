@@ -50,22 +50,22 @@ const HomePage = () => {
 
   const features = [
     {
-      icon: <ShoppingBag className="w-8 h-8 text-indigo-600" />,
+      icon: <ShoppingBag className="w-8 h-8 text-red-600" />,
       title: 'Unique Products',
       description: 'Discover one-of-a-kind handcrafted items you won\'t find anywhere else.'
     },
     {
-      icon: <Users className="w-8 h-8 text-indigo-600" />,
+      icon: <Users className="w-8 h-8 text-red-600" />,
       title: 'Support Artisans',
       description: 'Directly support talented home-based entrepreneurs and small businesses.'
     },
     {
-      icon: <Award className="w-8 h-8 text-indigo-600" />,
+      icon: <Award className="w-8 h-8 text-red-600" />,
       title: 'Quality Guarantee',
       description: 'Every product is carefully crafted with attention to detail and quality.'
     },
     {
-      icon: <Shield className="w-8 h-8 text-indigo-600" />,
+      icon: <Shield className="w-8 h-8 text-red-600" />,
       title: 'Secure Shopping',
       description: 'Shop with confidence using our secure payment and buyer protection.'
     }
@@ -73,47 +73,118 @@ const HomePage = () => {
 
   return (
     <div className="bg-white">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 text-white overflow-hidden">
-        {/* Decorative Elements */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+      {/* Hero Section - Split Layout with Image */}
+      <section className="relative bg-gradient-to-br from-primary-50 via-accent-50 to-secondary-50 overflow-hidden">
+        {/* Decorative Background Pattern */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-primary-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
+          <div className="absolute top-40 right-10 w-72 h-72 bg-accent-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+          <div className="absolute bottom-20 left-40 w-72 h-72 bg-secondary-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
         </div>
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
-          <div className="text-center max-w-4xl mx-auto">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium mb-8 border border-white/30">
-              <Sparkles className="w-4 h-4" />
-              <span>Discover Unique Handcrafted Treasures</span>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            
+            {/* Left Content */}
+            <div className="space-y-8 text-left">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white shadow-soft rounded-full text-sm font-semibold border border-primary-200 hover:shadow-card-hover transition-shadow">
+                <Sparkles className="w-4 h-4 text-primary-600" />
+                <span className="text-neutral-800">Handcrafted with Love ✨</span>
+              </div>
+              
+              {/* Main Heading */}
+              <div className="space-y-4">
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold leading-tight text-neutral-900">
+                  Discover <br/>
+                  <span className="text-primary-600">Unique</span>{' '}
+                  <span className="text-secondary-600">Handmade</span>{' '}
+                  <span className="relative inline-block">
+                    <span className="relative z-10">Treasures</span>
+                    <span className="absolute bottom-2 left-0 w-full h-4 bg-accent-300 -z-0 transform -skew-y-2"></span>
+                  </span>
+                </h1>
+                <p className="text-xl sm:text-2xl text-neutral-600 leading-relaxed max-w-xl">
+                  Connect directly with talented artisans and bring home one-of-a-kind pieces that tell a story
+                </p>
+              </div>
+              
+              {/* Stats */}
+              <div className="flex gap-8 py-4">
+                <div>
+                  <div className="text-3xl font-bold text-primary-600">500+</div>
+                  <div className="text-sm text-neutral-600">Artisans</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-secondary-600">2,000+</div>
+                  <div className="text-sm text-neutral-600">Products</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-accent-600">15K+</div>
+                  <div className="text-sm text-neutral-600">Happy Customers</div>
+                </div>
+              </div>
+              
+              {/* CTA Buttons */}
+              <div className="flex flex-wrap gap-4">
+                <Link to="/products">
+                  <Button className="bg-primary-600 text-white hover:bg-primary-700 border-0 shadow-card hover:shadow-card-hover transition-all transform hover:-translate-y-1 font-semibold px-8 py-4 text-lg rounded-xl inline-flex items-center gap-2 group">
+                    <ShoppingBag className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                    Explore Marketplace
+                  </Button>
+                </Link>
+                <Link to="/vendors">
+                  <Button className="bg-white text-neutral-800 hover:bg-neutral-50 border-2 border-neutral-300 shadow-card hover:shadow-card-hover font-semibold px-8 py-4 text-lg rounded-xl inline-flex items-center gap-2 transition-all group">
+                    Meet Artisans
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Image Grid */}
+            <div className="hidden lg:block relative">
+              <div className="grid grid-cols-2 gap-4">
+                {/* Main Large Image */}
+                <div className="col-span-2 rounded-3xl overflow-hidden shadow-card-hover transform hover:scale-105 transition-all duration-500">
+                  <img 
+                    src="https://cdn.shopify.com/s/files/1/0070/7032/articles/selling-handmade-goods_2c9996a9-293f-424a-8512-91763c9dec52.png?w=800&q=80" 
+                    alt="Handmade crafts"
+                    className="w-full h-80 object-cover"
+                  />
+                </div>
+                
+                {/* Small Images */}
+                <div className="rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transform hover:scale-105 transition-all duration-500">
+                  <img 
+                    src="https://growingfaith.com.au/images/made/images/uploads/growing-faith-682x341-2022-12-08c_682_341_int_c1_c_c__1.jpg?w=400&q=80" 
+                    alt="Pottery"
+                    className="w-full h-48 object-cover"
+                  />
+                </div>
+                <div className="rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transform hover:scale-105 transition-all duration-500">
+                  <img 
+                    src="https://egyptianstreets.com/wp-content/uploads/2020/09/WhatsApp-Image-2020-09-23-at-1.14.02-PM.jpeg?w=400&q=80" 
+                    alt="Textiles"
+                    className="w-full h-48 object-cover"
+                  />
+                </div>
+              </div>
+              
+              {/* Floating Badge */}
+              <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-card-hover p-6 border border-primary-200 animate-bounce-slow">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                    <Award className="w-6 h-6 text-primary-600" />
+                  </div>
+                  <div>
+                    <div className="font-bold text-neutral-900">Quality Assured</div>
+                    <div className="text-sm text-neutral-600">Verified Artisans</div>
+                  </div>
+                </div>
+              </div>
             </div>
             
-            {/* Main Heading */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 to-pink-200">Handmade Hub</span>
-            </h1>
-            
-            {/* Subheading */}
-            <p className="text-lg sm:text-xl md:text-2xl mb-10 text-indigo-50 max-w-3xl mx-auto leading-relaxed">
-              Connect with talented artisans and discover one-of-a-kind handcrafted products made with love
-            </p>
-            
-            {/* CTA Buttons */}
-            <div className="flex flex-row gap-3 justify-center items-center">
-              <Link to="/products">
-                <Button className="bg-white text-indigo-600 hover:bg-gray-50 border-0 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 font-semibold px-6 py-2.5 text-base rounded-lg inline-flex items-center">
-                  <ShoppingBag className="w-4 h-4 mr-2" />
-                  Shop Now
-                </Button>
-              </Link>
-              <Link to="/register">
-                <Button className="bg-transparent text-white hover:bg-white/10 border-2 border-white backdrop-blur-sm font-semibold px-6 py-2.5 text-base rounded-lg inline-flex items-center">
-                  Become a Vendor
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-            </div>
           </div>
         </div>
       </section>
@@ -130,8 +201,8 @@ const HomePage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <div key={index} className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2 border border-gray-100">
-                <div className="flex justify-center mb-5 bg-indigo-50 w-16 h-16 rounded-2xl mx-auto items-center">
-                  <div className="text-indigo-600">{feature.icon}</div>
+                <div className="flex justify-center mb-5 bg-red-50 w-16 h-16 rounded-2xl mx-auto items-center">
+                  <div className="text-red-600">{feature.icon}</div>
                 </div>
                 <h3 className="text-xl font-bold mb-3 text-gray-900">{feature.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{feature.description}</p>
@@ -183,7 +254,7 @@ const HomePage = () => {
                       {/* Product Info */}
                       <div className="p-6 space-y-3">
                         {/* Title */}
-                        <h3 className="text-lg font-bold text-gray-900 line-clamp-1 group-hover:text-indigo-600 transition-colors">
+                        <h3 className="text-lg font-bold text-gray-900 line-clamp-1 group-hover:text-red-600 transition-colors">
                           {product.title || product.name}
                         </h3>
                         
@@ -195,7 +266,7 @@ const HomePage = () => {
                         {/* Price & Button */}
                         <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                           <div>
-                            <span className="text-2xl font-bold text-indigo-600">
+                            <span className="text-2xl font-bold text-red-600">
                               ${Number(product.price).toFixed(2)}
                             </span>
                             {product.compareAtPrice && product.compareAtPrice > product.price && (
@@ -206,7 +277,7 @@ const HomePage = () => {
                           </div>
                           <Button 
                             size="sm" 
-                            className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-all"
+                            className="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-all"
                           >
                             View Details
                           </Button>
@@ -221,7 +292,7 @@ const HomePage = () => {
                 <div className="text-center py-20 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-300">
                   <ShoppingBag className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                   <p className="text-xl font-medium text-gray-600 mb-2">No featured products available yet</p>
-                  <Link to="/products" className="inline-flex items-center text-indigo-600 hover:text-indigo-700 font-semibold mt-4 group">
+                  <Link to="/products" className="inline-flex items-center text-red-600 hover:text-red-700 font-semibold mt-4 group">
                     Browse all products 
                     <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
@@ -232,7 +303,7 @@ const HomePage = () => {
                 <div className="flex justify-center mt-16">
                   <Link to="/products">
                     <Button 
-                      className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2.5 text-base rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 inline-flex items-center"
+                      className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2.5 text-base rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 inline-flex items-center"
                     >
                       View All Products
                       <ArrowRight className="ml-2 w-4 h-4" />
@@ -246,7 +317,7 @@ const HomePage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 text-white py-20 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-red-600 via-purple-600 to-pink-500 text-white py-20 overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
@@ -262,12 +333,12 @@ const HomePage = () => {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight">
             Ready to Share Your Craft?
           </h2>
-          <p className="text-lg sm:text-xl text-indigo-50 mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl text-red-50 mb-10 max-w-2xl mx-auto leading-relaxed">
             Join our thriving community of artisans and reach thousands of customers who appreciate handmade quality
           </p>
           <Link to="/register">
             <Button 
-              className="bg-white text-indigo-600 hover:bg-gray-50 font-semibold px-6 py-2.5 text-base rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 inline-flex items-center"
+              className="bg-white text-red-600 hover:bg-gray-50 font-semibold px-6 py-2.5 text-base rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 inline-flex items-center"
             >
               <Sparkles className="w-4 h-4 mr-2" />
               Become a Vendor Today

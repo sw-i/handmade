@@ -67,10 +67,10 @@ const AdminAnalyticsPage = () => {
             <div>
               <p className="text-sm text-gray-600 mb-1">Total Orders</p>
               <p className="text-3xl font-bold text-gray-900">{analytics.totalOrders.toLocaleString()}</p>
-              <p className="text-sm text-blue-600 mt-1">+12% from last month</p>
+              <p className="text-sm text-red-600 mt-1">+12% from last month</p>
             </div>
-            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-              <ShoppingCart className="w-6 h-6 text-blue-600" />
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+              <ShoppingCart className="w-6 h-6 text-red-600" />
             </div>
           </div>
         </Card>
@@ -80,10 +80,10 @@ const AdminAnalyticsPage = () => {
             <div>
               <p className="text-sm text-gray-600 mb-1">Avg Order Value</p>
               <p className="text-3xl font-bold text-gray-900">${analytics.avgOrderValue}</p>
-              <p className="text-sm text-indigo-600 mt-1">Per transaction</p>
+              <p className="text-sm text-red-600 mt-1">Per transaction</p>
             </div>
-            <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-indigo-600" />
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+              <TrendingUp className="w-6 h-6 text-red-600" />
             </div>
           </div>
         </Card>
@@ -106,10 +106,10 @@ const AdminAnalyticsPage = () => {
             <div>
               <p className="text-sm text-gray-600 mb-1">Active Vendors</p>
               <p className="text-3xl font-bold text-gray-900">{analytics.totalVendors}</p>
-              <p className="text-sm text-blue-600 mt-1">Platform partners</p>
+              <p className="text-sm text-red-600 mt-1">Platform partners</p>
             </div>
-            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-              <Store className="w-6 h-6 text-blue-600" />
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+              <Store className="w-6 h-6 text-red-600" />
             </div>
           </div>
         </Card>
@@ -119,10 +119,10 @@ const AdminAnalyticsPage = () => {
             <div>
               <p className="text-sm text-gray-600 mb-1">Total Products</p>
               <p className="text-3xl font-bold text-gray-900">{analytics.totalProducts.toLocaleString()}</p>
-              <p className="text-sm text-indigo-600 mt-1">Listed on platform</p>
+              <p className="text-sm text-red-600 mt-1">Listed on platform</p>
             </div>
-            <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-              <Package className="w-6 h-6 text-indigo-600" />
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+              <Package className="w-6 h-6 text-red-600" />
             </div>
           </div>
         </Card>
@@ -145,7 +145,7 @@ const AdminAnalyticsPage = () => {
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div 
-                      className="bg-gradient-to-r from-indigo-600 to-blue-500 h-2 rounded-full transition-all"
+                      className="bg-gradient-to-r from-red-600 to-blue-500 h-2 rounded-full transition-all"
                       style={{ width: `${percentage}%` }}
                     />
                   </div>
@@ -160,14 +160,14 @@ const AdminAnalyticsPage = () => {
           <div className="space-y-4">
             {analytics.topCategories.map((category, idx) => (
               <div key={category.name} className="flex items-center gap-4">
-                <div className="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center font-bold text-indigo-600">
+                <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center font-bold text-red-600">
                   {idx + 1}
                 </div>
                 <div className="flex-1">
                   <p className="font-semibold text-gray-900">{category.name}</p>
                   <p className="text-sm text-gray-600">{category.sales} sales</p>
                 </div>
-                <p className="font-bold text-indigo-600">${category.revenue.toLocaleString()}</p>
+                <p className="font-bold text-red-600">${category.revenue.toLocaleString()}</p>
               </div>
             ))}
           </div>
@@ -179,15 +179,15 @@ const AdminAnalyticsPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {analytics.topVendors.map((vendor, idx) => (
             <div key={vendor.name} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
-              <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-                <Store className="w-6 h-6 text-indigo-600" />
+              <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                <Store className="w-6 h-6 text-red-600" />
               </div>
               <div className="flex-1">
                 <p className="font-semibold text-gray-900">{vendor.name}</p>
                 <p className="text-sm text-gray-600">{vendor.sales} sales</p>
               </div>
               <div className="text-right">
-                <p className="font-bold text-indigo-600">${vendor.revenue.toLocaleString()}</p>
+                <p className="font-bold text-red-600">${vendor.revenue.toLocaleString()}</p>
                 <p className="text-xs text-gray-500">Revenue</p>
               </div>
             </div>

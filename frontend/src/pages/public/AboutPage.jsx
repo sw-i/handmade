@@ -16,7 +16,7 @@ const AboutPage = () => {
         {/* Mission Section */}
         <div className="bg-white rounded-lg shadow-md p-8 mb-8">
           <div className="flex items-start gap-4 mb-4">
-            <Target className="w-8 h-8 text-indigo-600 flex-shrink-0" />
+            <Target className="w-8 h-8 text-red-600 flex-shrink-0" />
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-3">Our Mission</h2>
               <p className="text-gray-700 leading-relaxed">
@@ -32,7 +32,7 @@ const AboutPage = () => {
         {/* What We Do */}
         <div className="bg-white rounded-lg shadow-md p-8 mb-8">
           <div className="flex items-start gap-4 mb-4">
-            <Building2 className="w-8 h-8 text-indigo-600 flex-shrink-0" />
+            <Building2 className="w-8 h-8 text-red-600 flex-shrink-0" />
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-3">What We Do</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
@@ -41,23 +41,23 @@ const AboutPage = () => {
               </p>
               <ul className="space-y-2 text-gray-700">
                 <li className="flex items-start">
-                  <span className="text-indigo-600 mr-2">•</span>
+                  <span className="text-red-600 mr-2">•</span>
                   <span>Product catalog management and inventory tracking</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-indigo-600 mr-2">•</span>
+                  <span className="text-red-600 mr-2">•</span>
                   <span>Secure payment processing and order management</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-indigo-600 mr-2">•</span>
+                  <span className="text-red-600 mr-2">•</span>
                   <span>Vendor approval system ensuring quality standards</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-indigo-600 mr-2">•</span>
+                  <span className="text-red-600 mr-2">•</span>
                   <span>Analytics and business insights for vendors</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-indigo-600 mr-2">•</span>
+                  <span className="text-red-600 mr-2">•</span>
                   <span>Event management for craft fairs and markets</span>
                 </li>
               </ul>
@@ -68,7 +68,7 @@ const AboutPage = () => {
         {/* Who We Serve */}
         <div className="bg-white rounded-lg shadow-md p-8 mb-8">
           <div className="flex items-start gap-4 mb-4">
-            <Users className="w-8 h-8 text-indigo-600 flex-shrink-0" />
+            <Users className="w-8 h-8 text-red-600 flex-shrink-0" />
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-3">Who We Serve</h2>
               <div className="space-y-4 text-gray-700">
@@ -101,7 +101,7 @@ const AboutPage = () => {
         {/* Our Values */}
         <div className="bg-white rounded-lg shadow-md p-8">
           <div className="flex items-start gap-4 mb-4">
-            <Award className="w-8 h-8 text-indigo-600 flex-shrink-0" />
+            <Award className="w-8 h-8 text-red-600 flex-shrink-0" />
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-3">Our Values</h2>
               <div className="grid md:grid-cols-2 gap-4 text-gray-700">
@@ -133,7 +133,7 @@ const AboutPage = () => {
           </p>
           <a
             href="/auth/register"
-            className="inline-block bg-indigo-600 text-white px-8 py-3 rounded-lg hover:bg-indigo-700 transition-colors"
+            className="inline-block bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700 transition-colors"
           >
             Become a Vendor
           </a>

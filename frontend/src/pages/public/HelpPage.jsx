@@ -104,7 +104,7 @@ const HelpPage = () => {
                 placeholder="Search help articles..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
               />
             </div>
           </div>
@@ -115,7 +115,7 @@ const HelpPage = () => {
           {(searchQuery === '' ? helpCategories : filteredCategories).map((category, index) => (
             <div key={index} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
               <div className="flex items-center gap-3 mb-4">
-                <category.icon className="w-8 h-8 text-indigo-600" />
+                <category.icon className="w-8 h-8 text-red-600" />
                 <h2 className="text-xl font-bold text-gray-900">{category.title}</h2>
               </div>
               <p className="text-gray-600 mb-4">{category.description}</p>
@@ -124,7 +124,7 @@ const HelpPage = () => {
                   <li key={articleIndex}>
                     <a
                       href="#"
-                      className="text-indigo-600 hover:text-indigo-700 text-sm block py-1"
+                      className="text-red-600 hover:text-red-700 text-sm block py-1"
                       onClick={(e) => e.preventDefault()}
                     >
                       {article}
@@ -141,7 +141,7 @@ const HelpPage = () => {
             <p className="text-gray-600 text-lg mb-4">No help articles found for "{searchQuery}"</p>
             <button
               onClick={() => setSearchQuery('')}
-              className="text-indigo-600 hover:text-indigo-700 font-medium"
+              className="text-red-600 hover:text-red-700 font-medium"
             >
               Clear search
             </button>
@@ -149,7 +149,7 @@ const HelpPage = () => {
         )}
 
         {/* Still Need Help */}
-        <div className="mt-12 bg-indigo-50 rounded-lg p-8 text-center">
+        <div className="mt-12 bg-red-50 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Still need help?</h2>
           <p className="text-gray-600 mb-6">
             Can't find what you're looking for? Our support team is here to assist you.
@@ -157,13 +157,13 @@ const HelpPage = () => {
           <div className="flex flex-wrap justify-center gap-4">
             <a
               href="/support"
-              className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition-colors"
+              className="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors"
             >
               Contact Support
             </a>
             <a
               href="/chatbot"
-              className="bg-white text-indigo-600 px-6 py-3 rounded-lg hover:bg-indigo-50 transition-colors border border-indigo-600"
+              className="bg-white text-red-600 px-6 py-3 rounded-lg hover:bg-red-50 transition-colors border border-red-600"
             >
               Chat with Bot
             </a>

@@ -73,7 +73,7 @@ const CheckoutPage = () => {
             {/* Shipping Address */}
             <Card className="p-6">
               <div className="flex items-center gap-3 mb-6">
-                <MapPin className="w-6 h-6 text-indigo-600" />
+                <MapPin className="w-6 h-6 text-red-600" />
                 <h2 className="text-xl font-bold text-gray-900">Shipping Address</h2>
               </div>
               
@@ -116,7 +116,7 @@ const CheckoutPage = () => {
             {/* Payment Information */}
             <Card className="p-6">
               <div className="flex items-center gap-3 mb-6">
-                <CreditCard className="w-6 h-6 text-indigo-600" />
+                <CreditCard className="w-6 h-6 text-red-600" />
                 <h2 className="text-xl font-bold text-gray-900">Payment Information</h2>
               </div>
               
@@ -159,7 +159,7 @@ const CheckoutPage = () => {
           <div>
             <Card className="p-6 sticky top-8">
               <div className="flex items-center gap-3 mb-6">
-                <Package className="w-6 h-6 text-indigo-600" />
+                <Package className="w-6 h-6 text-red-600" />
                 <h2 className="text-xl font-bold text-gray-900">Order Summary</h2>
               </div>
 
@@ -174,7 +174,7 @@ const CheckoutPage = () => {
                     <div className="flex-1">
                       <p className="font-medium text-gray-900 text-sm">{item.name}</p>
                       <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
-                      <p className="text-sm font-semibold text-indigo-600">${(Number(item.price) * item.quantity).toFixed(2)}</p>
+                      <p className="text-sm font-semibold text-red-600">${(Number(item.price) * item.quantity).toFixed(2)}</p>
                     </div>
                   </div>
                 ))}
@@ -195,7 +195,7 @@ const CheckoutPage = () => {
                 </div>
                 <div className="flex justify-between text-lg font-bold text-gray-900 pt-2 border-t border-gray-200">
                   <span>Total</span>
-                  <span className="text-indigo-600">${total.toFixed(2)}</span>
+                  <span className="text-red-600">${total.toFixed(2)}</span>
                 </div>
               </div>
 
