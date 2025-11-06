@@ -25,7 +25,7 @@ exports.chat = async (req, res) => {
     }
 
     const model = genAI.getGenerativeModel({ 
-      model: 'gemini-pro',
+      model: 'gemini-2.0-flash-exp',
       systemInstruction: systemInstruction
     });
 
@@ -98,7 +98,7 @@ exports.chatSimple = async (req, res) => {
     }
 
     const model = genAI.getGenerativeModel({ 
-      model: 'gemini-pro',
+      model: 'gemini-2.0-flash-exp',
       systemInstruction: systemInstruction
     });
 
