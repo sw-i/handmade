@@ -33,9 +33,23 @@ const LoginPage = () => {
     setLoading(true);
 
     try {
-      await login(formData.email, formData.password);
-      navigate(from, { replace: true });
+      const result = await login({ email: formData.email, password: formData.password });
+      
+      // Role-based redirect
+      if (from !== '/') {
+        navigate(from, { replace: true });
+      } else {
+        const role = result?.user?.role;
+        if (role === 'admin') {
+          navigate('/admin', { replace: true });
+        } else if (role === 'vendor') {
+          navigate('/vendor', { replace: true });
+        } else {
+          navigate('/customer/dashboard', { replace: true });
+        }
+      }
     } catch (err) {
+      console.error('Login error:', err);
       setError(err.response?.data?.message || 'Invalid email or password');
     } finally {
       setLoading(false);
@@ -43,96 +57,144 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <div className="flex justify-center">
-            <LogIn className="h-12 w-12 text-red-600" />
+    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-primary-50 to-accent-50 flex items-center justify-center p-4">
+      <div className="w-full max-w-6xl grid md:grid-cols-2 gap-8 items-center">
+        
+        {/* Left Side - Branding */}
+        <div className="hidden md:block space-y-6">
+          <div className="space-y-4">
+            <h1 className="text-5xl font-display font-bold text-neutral-900">
+              Welcome Back
+            </h1>
+            <p className="text-xl text-neutral-600 leading-relaxed">
+              Sign in to discover unique handcrafted treasures from talented artisans
+            </p>
           </div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Or{' '}
-            <Link to="/register" className="font-medium text-red-600 hover:text-red-500">
-              create a new account
-            </Link>
-          </p>
+          
+          <div className="space-y-4 pt-8">
+            <div className="flex items-start gap-3">
+              <div className="w-2 h-2 bg-primary-500 rounded-full mt-2"></div>
+              <div>
+                <h3 className="font-semibold text-neutral-800">Discover Unique Items</h3>
+                <p className="text-sm text-neutral-600">One-of-a-kind handmade products</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-2 h-2 bg-secondary-500 rounded-full mt-2"></div>
+              <div>
+                <h3 className="font-semibold text-neutral-800">Support Local Artists</h3>
+                <p className="text-sm text-neutral-600">Direct connection with creators</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-2 h-2 bg-accent-500 rounded-full mt-2"></div>
+              <div>
+                <h3 className="font-semibold text-neutral-800">Quality Craftsmanship</h3>
+                <p className="text-sm text-neutral-600">Every piece tells a story</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <ErrorMessage message={error} onClose={() => setError('')} />
-
-          <div>
-            <Input
-              label="Email address"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              placeholder="Enter your email"
-              autoComplete="email"
-            />
-
-            <Input
-              label="Password"
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              placeholder="Enter your password"
-              autoComplete="current-password"
-            />
+        {/* Right Side - Login Form */}
+        <div className="bg-white rounded-3xl shadow-soft p-8 md:p-10 space-y-6">
+          <div className="space-y-2">
+            <div className="inline-flex p-3 bg-primary-100 rounded-2xl">
+              <LogIn className="h-6 w-6 text-primary-600" />
+            </div>
+            <h2 className="text-2xl font-display font-bold text-neutral-900">
+              Sign In
+            </h2>
+            <p className="text-neutral-600">
+              New here?{' '}
+              <Link to="/register" className="font-semibold text-primary-600 hover:text-primary-700 underline decoration-2 underline-offset-2">
+                Create an account
+              </Link>
+            </p>
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <ErrorMessage message={error} onClose={() => setError('')} />
+
+            <div className="space-y-4">
+              <Input
+                label="Email"
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                placeholder="you@example.com"
+                autoComplete="email"
               />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                Remember me
-              </label>
+
+              <Input
+                label="Password"
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                placeholder="Enter your password"
+                autoComplete="current-password"
+              />
             </div>
 
-            <div className="text-sm">
-              <Link to="/forgot-password" className="font-medium text-red-600 hover:text-red-500">
-                Forgot your password?
+            <div className="flex items-center justify-between text-sm">
+              <label className="flex items-center gap-2 cursor-pointer group">
+                <input
+                  id="remember-me"
+                  name="remember-me"
+                  type="checkbox"
+                  className="w-4 h-4 text-primary-600 focus:ring-primary-500 border-neutral-300 rounded transition"
+                />
+                <span className="text-neutral-700 group-hover:text-neutral-900">Remember me</span>
+              </label>
+
+              <Link 
+                to="/forgot-password" 
+                className="font-medium text-primary-600 hover:text-primary-700 underline decoration-2 underline-offset-2"
+              >
+                Forgot password?
               </Link>
             </div>
-          </div>
 
-          <Button
-            type="submit"
-            loading={loading}
-            disabled={!formData.email || !formData.password}
-            className="w-full"
-          >
-            Sign in
-          </Button>
-        </form>
+            <Button
+              type="submit"
+              loading={loading}
+              disabled={!formData.email || !formData.password}
+              className="w-full py-3 text-base font-semibold"
+            >
+              Sign In
+            </Button>
+          </form>
 
-        <div className="mt-6">
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300" />
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-gray-50 text-gray-500">Test Credentials</span>
-            </div>
-          </div>
-          <div className="mt-3 text-sm text-gray-600 text-center">
-            <p>
-👤 Admin: admin@test.com / Test123!
-🏪 Vendor: vendor@test.com / Test123!
-🛒 Customer: customer@test.com / Test123!
-⏳ Pending Vendor: pending@test.com / Test123!
-            </p>
+          {/* Test Credentials */}
+          <div className="pt-6 border-t border-neutral-200">
+            <details className="group">
+              <summary className="cursor-pointer text-sm font-medium text-neutral-600 hover:text-neutral-900 flex items-center justify-between">
+                <span>🧪 Test Credentials</span>
+                <span className="text-xs text-neutral-400 group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <div className="mt-3 space-y-2 text-xs font-mono bg-neutral-50 rounded-xl p-4">
+                <div className="flex justify-between">
+                  <span className="text-neutral-500">Admin:</span>
+                  <span className="text-neutral-800">admin@test.com / Test123!</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-neutral-500">Vendor:</span>
+                  <span className="text-neutral-800">vendor@test.com / Test123!</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-neutral-500">Customer:</span>
+                  <span className="text-neutral-800">customer@test.com / Test123!</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-neutral-500">Pending:</span>
+                  <span className="text-neutral-800">pending@test.com / Test123!</span>
+                </div>
+              </div>
+            </details>
           </div>
         </div>
       </div>
